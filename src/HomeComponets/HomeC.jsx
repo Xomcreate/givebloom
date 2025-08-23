@@ -63,7 +63,7 @@ function HomeC() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-2xl md:text-4xl font-extrabold text-gray-800 mb-12"
+          className="text-2xl md:text-3xl font-extrabold text-gray-800 mb-12"
         >
           Donation Categories
         </motion.h2>

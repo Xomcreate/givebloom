@@ -12,7 +12,7 @@ function TestA() {
           transition={{ duration: 0.8 }}
           className="md:w-1/2"
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
             “GiveBloom transformed my life”
           </h2>
           <p className="text-lg md:text-xl mb-6">

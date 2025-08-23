@@ -23,7 +23,7 @@ function HomeA() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl md:text-6xl font-bold leading-tight mb-6"
+          className="text-3xl md:text-4xl font-bold leading-tight mb-6"
         >
           A Small Gift Can Change <br /> Someone’s Entire Story
         </motion.h1>

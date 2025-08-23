@@ -5,7 +5,7 @@ import { FaBookOpen } from "react-icons/fa";
 function BlogA() {
   return (
     <div
-      className="w-full h-[60vh] md:h-[80vh] bg-cover bg-center relative flex items-center justify-center"
+      className="w-full h-[60vh] md:h-[75vh] bg-cover bg-center relative flex items-center justify-center"
       style={{ backgroundImage: `url(${heroImage})` }}
     >
       {/* Dark overlay */}
@@ -14,7 +14,7 @@ function BlogA() {
       {/* Text content */}
       <div className="relative text-center text-white px-4 md:px-8">
         <FaBookOpen className="mx-auto text-4xl sm:text-5xl md:text-6xl mb-3 md:mb-4 text-yellow-400" />
-        <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
           Our Blog & Stories
         </h1>
         <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto">

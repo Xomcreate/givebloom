@@ -26,7 +26,7 @@ function BlogD() {
     <div className="w-full bg-gray-50 py-16 px-6 md:px-20">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
-        <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 text-center mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-yellow-400 text-center mb-8">
           Comments & Reviews
         </h2>
 

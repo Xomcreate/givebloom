@@ -64,6 +64,21 @@ function Footer() {
               </button>
             </li>
             <li>
+              <button onClick={() => handleNavigate("/causes")} className="hover:text-yellow-400 transition">
+                Causes
+              </button>
+            </li>
+            <li>
+              <button onClick={() => handleNavigate("/gallery")} className="hover:text-yellow-400 transition">
+                Gallery
+              </button>
+            </li>
+            <li>
+              <button onClick={() => handleNavigate("/testimonials")} className="hover:text-yellow-400 transition">
+                Testimonials
+              </button>
+            </li>
+            <li>
               <button onClick={() => handleNavigate("/contact")} className="hover:text-yellow-400 transition">
                 Contact
               </button>
@@ -91,7 +106,7 @@ function Footer() {
               </button>
             </li>
             <li>
-              <button onClick={() => handleNavigate("/partner")} className="hover:text-yellow-400 transition">
+              <button onClick={() => handleNavigate("/volunteer")} className="hover:text-yellow-400 transition">
                 Partner
               </button>
             </li>

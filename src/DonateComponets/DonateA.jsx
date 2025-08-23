@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import heroImage from "../assets/edu.jpg"; // replace with your donation image
+import heroImage from "../assets/mich.jpg"; // replace with your donation image
 import { FaHandsHelping } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -32,7 +32,7 @@ function DonateA() {
 
   return (
     <div
-      className="w-full h-[70vh] md:h-[80vh] bg-cover bg-center relative flex items-center justify-center"
+      className="w-full h-[60vh] md:h-[75vh] bg-cover bg-center relative flex items-center justify-center"
       style={{ backgroundImage: `url(${heroImage})` }}
     >
       {/* Overlay */}
@@ -50,7 +50,7 @@ function DonateA() {
             animate={animations[currentIndex].animate}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4"
           >
             {texts[currentIndex]}
           </motion.h1>

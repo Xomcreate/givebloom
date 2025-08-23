@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 function AboutA() {
   return (
     <div
-      className="relative w-full h-[60vh] md:h-[80vh] bg-cover bg-center flex items-center justify-center"
+      className="relative w-full h-[60vh] md:h-[75vh] bg-cover bg-center flex items-center justify-center"
       style={{ backgroundImage: `url(${splashImage})` }}
     >
       {/* Dark overlay */}
@@ -15,7 +15,7 @@ function AboutA() {
       <div className="relative z-10 text-center text-white px-4 md:px-12 max-w-3xl">
         <FaHeart className="mx-auto text-yellow-400 text-4xl sm:text-5xl md:text-6xl mb-4 drop-shadow-lg" />
         
-        <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-snug mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-snug mb-4">
           Be the Reason Someone Smiles Today
         </h1>
 

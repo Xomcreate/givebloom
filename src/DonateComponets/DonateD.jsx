@@ -20,7 +20,7 @@ function DonateD() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-3xl md:text-5xl font-extrabold text-white"
+          className="text-3xl md:text-4xl font-extrabold text-white"
         >
           Make a Difference Today
         </motion.h2>

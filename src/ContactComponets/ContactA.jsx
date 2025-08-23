@@ -5,7 +5,7 @@ import { FaHandsHelping } from "react-icons/fa";
 function ContactA() {
   return (
     <div
-      className="w-full h-[60vh] md:h-[80vh] bg-cover bg-center relative flex items-center justify-center"
+      className="w-full h-[60vh] md:h-[75vh] bg-cover bg-center relative flex items-center justify-center"
       style={{ backgroundImage: `url(${heroImage})` }}
     >
       {/* Dark overlay for better text readability */}
@@ -14,7 +14,7 @@ function ContactA() {
       {/* Text content */}
       <div className="relative text-center text-white px-4 md:px-8">
         <FaHandsHelping className="mx-auto text-4xl sm:text-5xl md:text-6xl mb-3 md:mb-4 text-yellow-400" />
-        <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 md:mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 md:mb-4">
           We’d Love to Hear From You!
         </h1>
         <p className="text-base sm:text-lg md:text-xl mb-4 md:mb-6">

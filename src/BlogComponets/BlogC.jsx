@@ -18,7 +18,7 @@ function BlogC() {
         className="text-center max-w-2xl mx-auto mb-12"
       >
         <FaEnvelopeOpenText className="text-yellow-400 text-5xl mx-auto mb-4" />
-        <h2 className="text-3xl md:text-4xl font-bold text-yellow-400">
+        <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">
           Subscribe to Our Newsletter
         </h2>
         <p className="mt-4 text-gray-300 text-lg leading-relaxed">

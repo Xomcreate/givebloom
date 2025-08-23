@@ -15,6 +15,9 @@ import Causes from "./MainComponets/Causes";
 import Volunteer from "./MainComponets/Volunteer";
 import Gallery from "./MainComponets/Gallery";
 import Privacy from "./MainComponets/Privacy";
+import Register from "./MainComponets/Register";
+import Login from "./MainComponets/Login";
+import ForgetPassword from "./MainComponets/ForgetPassword";
 
 
 createRoot(document.getElementById("root")).render(
@@ -35,6 +38,11 @@ createRoot(document.getElementById("root")).render(
            <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<Donate/>} />
+              <Route path="/signup" element={<Register/>} />
+               <Route path="/login" element={<Login/>} />
+                <Route path="/forgot-password" element={<ForgetPassword/>} />
+            
+
             <Route path="/privacy" element={<Privacy/>} />
        
         {/* Add more routes here as needed */}

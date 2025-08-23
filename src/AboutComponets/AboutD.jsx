@@ -78,7 +78,7 @@ function AboutD() {
         transition={{ duration: 0.8 }}
         className="text-center max-w-3xl mx-auto mb-12"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-yellow-400">
+        <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">
        Our Goals & Impact  {/* ✅ updated from "Our Goals & Impact" */}
         </h2>
         <p className="mt-4 text-gray-300 text-lg leading-relaxed">

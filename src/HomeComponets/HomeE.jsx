@@ -32,7 +32,7 @@ function HomeE() {
           viewport={{ once: true }}
           className="space-y-6 text-center md:text-left"
         >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-gray-800">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800">
             Join the Mission
           </h2>
           <p className="text-lg text-gray-700">

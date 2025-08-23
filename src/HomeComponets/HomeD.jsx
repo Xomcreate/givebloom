@@ -28,7 +28,7 @@ function HomeD() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-2xl md:text-4xl font-bold text-gray-800 mb-6"
+          className="text-2xl md:text-3xl font-bold text-gray-800 mb-6"
         >
           Why Your Gift Matters
         </motion.h2>

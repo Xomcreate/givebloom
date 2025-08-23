@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaHandsHelping } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation(); // To detect route change
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -17,8 +19,30 @@ function Navbar() {
     { name: "Contact", path: "/contact" },
   ];
 
+  // Detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) setScrolled(true);
+      else setScrolled(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setIsOpen(false); // Close mobile menu on route change
+  }, [location]);
+
   return (
-    <nav className="bg-black w-full shadow-md">
+    <nav
+      className={`transition-all duration-300 ${
+        scrolled
+          ? "fixed top-4 left-1/2 transform -translate-x-1/2 w-3/4 bg-black/70 backdrop-blur-md rounded-xl z-50"
+          : "w-full bg-black"
+      }`}
+    >
       {/* Desktop Navbar */}
       <div className="hidden md:grid grid-cols-8 items-center px-6 h-[10vh]">
         {/* Left: Logo */}
@@ -76,31 +100,31 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-black text-white flex flex-col items-center gap-4 py-4">
-          {menuItems.map((item, idx) => (
-            <Link
-              key={idx}
-              to={item.path}
-              className="cursor-pointer hover:text-yellow-400 transition text-lg font-semibold"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
+      {/* Mobile Menu with smooth height animation */}
+      <div
+        className={`md:hidden bg-black text-white flex flex-col items-center gap-4 overflow-hidden transition-[max-height] duration-500 ease-out ${
+          isOpen ? "max-h-[500px] py-4" : "max-h-0 py-0"
+        }`}
+      >
+        {menuItems.map((item, idx) => (
           <Link
-            to="/donate"
-            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
-            onClick={() => setIsOpen(false)}
+            key={idx}
+            to={item.path}
+            className="cursor-pointer hover:text-yellow-400 transition text-lg font-semibold"
           >
-            Donate
-            <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
-              ↗
-            </div>
+            {item.name}
           </Link>
-        </div>
-      )}
+        ))}
+        <Link
+          to="/donate"
+          className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+        >
+          Donate
+          <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
+            ↗
+          </div>
+        </Link>
+      </div>
     </nav>
   );
 }

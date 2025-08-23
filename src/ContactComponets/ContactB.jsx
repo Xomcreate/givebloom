@@ -30,7 +30,7 @@ function ContactB() {
         >
           {/* Heading */}
           <div className="w-full md:w-auto">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-black mb-2 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-black mb-2 leading-tight">
               Let's Connect! 💬
             </h2>
             <p className="text-yellow-500 font-semibold text-lg md:text-xl mb-4">

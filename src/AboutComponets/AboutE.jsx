@@ -12,7 +12,7 @@ function AboutE() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-gray-800"
+          className="text-2xl md:text-3xl font-bold text-gray-800"
         >
           Together, We Can Bloom Hope
         </motion.h2>
