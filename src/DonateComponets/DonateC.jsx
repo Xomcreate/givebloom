@@ -64,9 +64,14 @@ function DonateC() {
               <h3 className="text-xl font-semibold text-gray-900">{plan.title}</h3>
               <p className="text-2xl font-bold text-yellow-400 mt-4">{plan.price}</p>
               <p className="text-gray-700 mt-3">{plan.description}</p>
-              <button className="mt-6 w-full bg-yellow-400 text-black py-3 rounded-xl font-semibold hover:bg-yellow-500 transition">
+
+              {/* Select Plan button links to donation form */}
+              <a
+                href="#donateForm"
+                className="mt-6 w-full bg-yellow-400 text-black py-3 rounded-xl font-semibold hover:bg-yellow-500 transition text-center"
+              >
                 Select Plan
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>

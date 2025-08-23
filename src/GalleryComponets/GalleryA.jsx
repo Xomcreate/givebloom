@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaHandsHelping } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // ✅ import navigation
 import img1 from '../assets/so.jpg';
 import img2 from '../assets/lunch.jpg';
 import img3 from '../assets/teach.jpg';
@@ -9,9 +10,8 @@ import img5 from '../assets/ka.jpg';
 
 function GalleryA() {
   const images = [img1, img2, img3, img4, img5];
-
-  // Duplicate images to create an infinite loop
-  const loopImages = [...images, ...images];
+  const loopImages = [...images, ...images]; // Duplicate images for loop
+  const navigate = useNavigate(); // ✅ initialize navigate
 
   return (
     <div className="w-full h-[60vh] md:h-[75vh] relative overflow-hidden">
@@ -46,7 +46,7 @@ function GalleryA() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 1 }}
-          className="text-3xl sm:text-4xl md:text-6xl font-extrabold mb-4 leading-tight"
+          className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 leading-tight"
         >
           See the Change You Make!
         </motion.h1>
@@ -60,11 +60,13 @@ function GalleryA() {
           Every image tells a story of hope, joy, and transformation. Your support brings smiles and changes lives.
         </motion.p>
 
+        {/* ✅ Button navigates to /donate */}
         <motion.button
           whileHover={{
             scale: 1.05,
             boxShadow: '0px 0px 20px rgba(255,255,255,0.8)',
           }}
+          onClick={() => navigate('/donate')} // ✅ route to donate
           className="bg-yellow-400 text-black font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-lg sm:text-xl transition"
         >
           Donate Now & Make Impact

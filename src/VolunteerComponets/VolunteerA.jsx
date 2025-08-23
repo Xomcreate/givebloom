@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaUsers } from 'react-icons/fa';
-import heroImage from '../assets/boy.jpg'; // replace with your hero image
+import heroImage from '../assets/shit.jpg'; // replace with your hero image
 
 function VolunteerA() {
   return (
@@ -50,25 +50,29 @@ function VolunteerA() {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <motion.button
+          {/* Volunteer Button */}
+          <motion.a
+            href="#volunteerd" // ✅ scrolls to VolunteerD section
             whileHover={{
               scale: 1.05,
               boxShadow: '0px 0px 20px rgba(255,255,255,0.8)',
             }}
-            className="bg-yellow-400 text-black font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-lg sm:text-xl transition"
+            className="bg-yellow-400 text-black font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-lg sm:text-xl transition inline-block"
           >
             Become a Volunteer
-          </motion.button>
+          </motion.a>
 
-          <motion.button
+          {/* Partner Button */}
+          <motion.a
+            href="#volunteerd" // ✅ same anchor, goes to same form
             whileHover={{
               scale: 1.05,
               boxShadow: '0px 0px 20px rgba(255,255,255,0.8)',
             }}
-            className="bg-yellow-400 text-black font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-lg sm:text-xl transition"
+            className="bg-yellow-400 text-black font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-lg sm:text-xl transition inline-block"
           >
             Become a Partner
-          </motion.button>
+          </motion.a>
         </div>
       </motion.div>
     </div>

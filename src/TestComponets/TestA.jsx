@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import testimonialImage from "../assets/happy.jpg"; // ✅ use your jpg file
 
 function TestA() {
   return (
@@ -30,14 +31,14 @@ function TestA() {
           className="hidden md:block md:w-1/2"
         >
           <img
-            src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=600&q=80"
+            src={testimonialImage} // ✅ using local asset
             alt="Testimonial Hero"
             className="rounded-2xl shadow-xl"
           />
         </motion.div>
       </div>
 
-      {/* SVG Divider matching footer curve */}
+      {/* SVG Divider */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none rotate-180">
         <svg
           className="relative block w-full h-16"

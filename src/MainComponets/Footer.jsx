@@ -114,29 +114,37 @@ function Footer() {
         </div>
 
         {/* Socials */}
-        <div>
-          <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
-          <div className="flex justify-center md:justify-start gap-4">
-            <a
-              href="#"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-            >
-              <FaTwitter />
-            </a>
-            <a
-              href="#"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-            >
-              <FaInstagram />
-            </a>
-          </div>
-        </div>
+   {/* Socials */}
+<div>
+  <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+  <div className="flex justify-center md:justify-start gap-4">
+    <a
+      href="https://facebook.com/yourpage" // ✅ replace with your page
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
+    >
+      <FaFacebookF />
+    </a>
+    <a
+      href="https://twitter.com/yourpage" // ✅ replace with your profile
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
+    >
+      <FaTwitter />
+    </a>
+    <a
+      href="https://instagram.com/yourpage" // ✅ replace with your profile
+      target="_blank"
+      rel="noopener noreferrer"
+      className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
+    >
+      <FaInstagram />
+    </a>
+  </div>
+</div>
+
       </div>
 
       {/* Bottom Bar */}

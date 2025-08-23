@@ -18,11 +18,16 @@ function ContactA() {
           We’d Love to Hear From You!
         </h1>
         <p className="text-base sm:text-lg md:text-xl mb-4 md:mb-6">
-          Reach out to us for support, donations, or any questions. Your contribution makes a difference!
+          Reach out to us for support, donations, or any questions. Your
+          contribution makes a difference!
         </p>
-        <button className="bg-yellow-400 text-black font-semibold px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-3 rounded-md hover:bg-yellow-500 transition text-sm sm:text-base md:text-lg">
-          Contact Us
-        </button>
+
+        {/* Button with href link to ContactB */}
+        <a href="#contact-form">
+          <button className="bg-yellow-400 text-black font-semibold px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-3 rounded-md hover:bg-yellow-500 transition text-sm sm:text-base md:text-lg">
+            Contact Us
+          </button>
+        </a>
       </div>
     </div>
   );

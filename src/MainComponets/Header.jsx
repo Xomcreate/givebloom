@@ -4,7 +4,7 @@ import {
   FaPhone,
   FaFacebookF,
   FaTwitter,
-  FaGooglePlusG,
+  FaInstagram,
   FaUser,
 } from "react-icons/fa";
 import { MdLogin } from "react-icons/md";
@@ -29,9 +29,27 @@ function Header() {
 
         {/* Middle: Social Links */}
         <div className="col-span-1 flex justify-center gap-4 mt-2 md:mt-0">
-          <FaFacebookF className="hover:text-yellow-400 cursor-pointer" />
-          <FaTwitter className="hover:text-yellow-400 cursor-pointer" />
-          <FaGooglePlusG className="hover:text-yellow-400 cursor-pointer" />
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaFacebookF className="hover:text-yellow-400 cursor-pointer" />
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaTwitter className="hover:text-yellow-400 cursor-pointer" />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram className="hover:text-yellow-400 cursor-pointer" />
+          </a>
         </div>
 
         {/* Right: Login & Signup */}

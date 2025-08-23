@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaHandsHelping, FaUsers } from "react-icons/fa";
+import { Link } from "react-router-dom"; // ✅ Import Link
 
 function HomeE() {
   const options = [
@@ -8,17 +9,23 @@ function HomeE() {
       icon: <FaHandsHelping className="text-5xl text-yellow-400" />,
       title: "Become a Volunteer",
       desc: "Join our team of passionate volunteers bringing hope and relief to communities. Your time can change lives.",
+      link: "/volunteer", // ✅ Added link
     },
     {
       icon: <FaUsers className="text-5xl text-yellow-400" />,
       title: "Partner With Us",
       desc: "Collaborate with us as a business, NGO, or institution. Together, we can multiply our impact and reach more people.",
+      link: "/volunteer", // ✅ Optional different link (can keep /volunteer if you want same)
     },
   ];
 
   const cardVariants = {
     hidden: { opacity: 0, y: 60 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   return (
@@ -60,9 +67,12 @@ function HomeE() {
                 {opt.title}
               </h3>
               <p className="text-gray-700">{opt.desc}</p>
-              <button className="mt-4 bg-yellow-400 text-white font-semibold px-5 py-2 rounded-full hover:bg-yellow-400 transition">
+              <Link
+                to={opt.link}
+                className="mt-4 bg-yellow-400 text-white font-semibold px-5 py-2 rounded-full hover:bg-yellow-500 transition"
+              >
                 Get Started
-              </button>
+              </Link>
             </motion.div>
           ))}
         </motion.div>

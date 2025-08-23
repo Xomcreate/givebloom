@@ -29,9 +29,13 @@ function CauseA() {
           healthcare, and safe living for those in need.
         </p>
 
-        <button className="bg-yellow-400 text-black font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-md hover:bg-yellow-500 transition text-sm sm:text-base md:text-lg shadow-md">
+        {/* ✅ Changed from button → anchor tag */}
+        <a
+          href="#causeb"
+          className="bg-yellow-400 text-black font-semibold px-6 py-3 sm:px-8 sm:py-4 rounded-md hover:bg-yellow-500 transition text-sm sm:text-base md:text-lg shadow-md inline-block"
+        >
           Support a Cause
-        </button>
+        </a>
 
         {/* Cause Icons */}
         <div className="flex flex-wrap justify-center gap-6 mt-8">

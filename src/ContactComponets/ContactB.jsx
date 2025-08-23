@@ -15,7 +15,7 @@ function ContactB() {
   };
 
   return (
-    <div className="w-full bg-gray-50 py-16 px-4 md:px-12">
+    <div id="contact-form" className="w-full bg-gray-50 py-16 px-4 md:px-12">
       <motion.div
         className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-stretch"
         variants={containerVariants}

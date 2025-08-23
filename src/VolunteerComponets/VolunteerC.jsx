@@ -1,13 +1,13 @@
 import React from 'react';
-import volunteer1 from '../assets/boy.jpg'; // placeholder image
-import volunteer2 from '../assets/girl.jpg';
-import volunteer3 from '../assets/ka.jpg';
+import volunteer1 from '../assets/woman.jpg'; // placeholder image
+import volunteer2 from '../assets/close.jpg';
+import volunteer3 from '../assets/hii.jpg';
 
 function VolunteerC() {
   const volunteers = [
     { image: volunteer1, name: 'Grace Oladipo', role: 'Volunteer Coordinator', description: 'Passionate about helping communities and making an impact.' },
-    { image: volunteer2, name: 'Emmanuel Okeke', role: 'Community Volunteer', description: 'Dedicated to improving lives through consistent support.' },
-    { image: volunteer3, name: 'Aisha Bello', role: 'Event Organizer', description: 'Bringing people together to create meaningful change.' },
+    { image: volunteer2, name: 'Arjun 🇮🇳', role: 'Community Volunteer', description: 'Dedicated to improving lives through consistent support.' },
+    { image: volunteer3, name: 'Elena Kovacs', role: 'Event Organizer', description: 'Bringing people together to create meaningful change.' },
   ];
 
   return (

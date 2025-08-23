@@ -1,6 +1,7 @@
 import React from "react";
 import splashImage from "../assets/coin.jpg"; // replace with your splash image
 import { FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom"; // ✅ import Link
 
 function AboutA() {
   return (
@@ -25,9 +26,12 @@ function AboutA() {
           brighter futures for families in need.
         </p>
 
-        <button className="bg-yellow-400 text-black font-semibold px-5 py-3 sm:px-6 sm:py-3 rounded-md hover:bg-yellow-500 transition text-sm sm:text-base md:text-lg shadow-md">
+        <Link
+          to="/volunteer"
+          className="bg-yellow-400 text-black font-semibold px-5 py-3 sm:px-6 sm:py-3 rounded-md hover:bg-yellow-500 transition text-sm sm:text-base md:text-lg shadow-md"
+        >
           Join Our Mission
-        </button>
+        </Link>
       </div>
     </div>
   );
