@@ -40,7 +40,7 @@ function Navbar() {
     <nav
       className={`transition-all duration-300 ${
         scrolled
-          ? "fixed top-4 left-1/2 transform -translate-x-1/2 w-3/4 bg-black/70 backdrop-blur-md rounded-xl z-50"
+          ? "fixed top-4 left-1/2 transform -translate-x-1/2 md:w-3/4 w-[95%] bg-black/70 backdrop-blur-md rounded-xl overflow-hidden z-50"
           : "w-full bg-black"
       }`}
     >
@@ -51,7 +51,6 @@ function Navbar() {
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          {/* Blooming font style */}
           <h1 className="text-3xl font-serif italic tracking-wide text-white">
             GiveBloom
           </h1>
@@ -113,7 +112,10 @@ function Navbar() {
         </div>
 
         {/* Hamburger */}
-        <button onClick={() => setIsOpen(!isOpen)}>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 focus:outline-none"
+        >
           {isOpen ? (
             <HiX className="w-7 h-7 text-yellow-400" />
           ) : (
