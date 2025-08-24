@@ -40,10 +40,8 @@ function Navbar() {
     <nav
       className={`transition-all duration-300 ${
         scrolled
-          ? // Scrolled state
-            "fixed top-0 left-0 w-full md:left-1/2 md:-translate-x-1/2 md:w-3/4 bg-black/70 backdrop-blur-md z-50 md:rounded-xl rounded-none"
-          : // Default state
-            "w-full bg-black md:w-full"
+          ? "fixed top-0 left-0 w-full md:left-1/2 md:-translate-x-1/2 md:w-3/4 bg-black/70 backdrop-blur-md z-50 md:rounded-xl rounded-none"
+          : "w-full bg-black md:w-full"
       }`}
     >
       {/* Desktop Navbar */}
@@ -53,13 +51,13 @@ function Navbar() {
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-3xl font-serif italic tracking-wide text-white">
+          <h1 className="text-3xl font-bold tracking-wide text-white">
             GiveBloom
           </h1>
         </div>
 
         {/* Center: Menu */}
-        <div className="col-span-4 flex justify-center gap-8 text-white text-lg font-semibold">
+        <div className="col-span-4 flex justify-center gap-8 text-white text-lg font-medium">
           {menuItems.map((item, idx) => (
             <Link
               key={idx}
@@ -75,7 +73,7 @@ function Navbar() {
         <div className="col-span-2 flex justify-center">
           <Link
             to="/donate"
-            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
           >
             Donate
             <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
@@ -92,7 +90,7 @@ function Navbar() {
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-xl font-serif italic tracking-wide text-white">
+          <h1 className="text-xl font-bold tracking-wide text-white">
             GiveBloom
           </h1>
         </div>
@@ -136,14 +134,14 @@ function Navbar() {
           <Link
             key={idx}
             to={item.path}
-            className="cursor-pointer hover:text-yellow-400 transition text-lg font-semibold"
+            className="cursor-pointer hover:text-yellow-400 transition text-lg font-medium"
           >
             {item.name}
           </Link>
         ))}
         <Link
           to="/donate"
-          className="bg-yellow-400 text-black px-6 py-2 rounded-full font-semibold flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+          className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
         >
           Donate
           <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
