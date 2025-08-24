@@ -18,6 +18,7 @@ import Privacy from "./MainComponets/Privacy";
 import Register from "./MainComponets/Register";
 import Login from "./MainComponets/Login";
 import ForgetPassword from "./MainComponets/ForgetPassword";
+import Admin from "./DashboardComponets/Admin";
 
 
 createRoot(document.getElementById("root")).render(
@@ -41,6 +42,8 @@ createRoot(document.getElementById("root")).render(
               <Route path="/signup" element={<Register/>} />
                <Route path="/login" element={<Login/>} />
                 <Route path="/forgot-password" element={<ForgetPassword/>} />
+                    <Route path="/admin" element={<Admin/>} />
+
             
 
             <Route path="/privacy" element={<Privacy/>} />
