@@ -40,8 +40,10 @@ function Navbar() {
     <nav
       className={`transition-all duration-300 ${
         scrolled
-          ? "fixed top-4 left-1/2 transform -translate-x-1/2 md:w-3/4 w-[95%] bg-black/70 backdrop-blur-md rounded-xl overflow-hidden z-50"
-          : "w-full bg-black"
+          ? // Scrolled state
+            "fixed top-0 left-0 w-full md:left-1/2 md:-translate-x-1/2 md:w-3/4 bg-black/70 backdrop-blur-md z-50 md:rounded-xl rounded-none"
+          : // Default state
+            "w-full bg-black md:w-full"
       }`}
     >
       {/* Desktop Navbar */}
