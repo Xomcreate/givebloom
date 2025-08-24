@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="bg-[#1a1a1a] text-white text-sm w-full px-4 sm:px-6 md:px-6 py-2">
+    <div className="hidden md:block bg-[#1a1a1a] text-white text-sm w-full px-4 sm:px-6 md:px-6 py-2">
       <div className="grid grid-cols-1 md:grid-cols-5 items-center gap-2 text-center md:text-left">
 
         {/* Left: Email & Phone */}
@@ -69,7 +69,6 @@ function Header() {
             <span>Sign Up</span>
           </Link>
         </div>
-
       </div>
     </div>
   );

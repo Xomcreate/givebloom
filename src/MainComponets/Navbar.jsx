@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { FaHandsHelping } from "react-icons/fa";
+import { FaHandsHelping, FaUser } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
+import { MdLogin } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation(); // To detect route change
+  const location = useLocation();
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -32,7 +33,7 @@ function Navbar() {
   // Scroll to top on route change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsOpen(false); // Close mobile menu on route change
+    setIsOpen(false);
   }, [location]);
 
   return (
@@ -50,7 +51,10 @@ function Navbar() {
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-2xl font-bold text-white">GiveBloom</h1>
+          {/* Blooming font style */}
+          <h1 className="text-3xl font-serif italic tracking-wide text-white">
+            GiveBloom
+          </h1>
         </div>
 
         {/* Center: Menu */}
@@ -87,7 +91,25 @@ function Navbar() {
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-xl font-bold text-white">GiveBloom</h1>
+          <h1 className="text-xl font-serif italic tracking-wide text-white">
+            GiveBloom
+          </h1>
+        </div>
+
+        {/* Centered Login + Signup icons */}
+        <div className="flex items-center gap-4">
+          <Link
+            to="/login"
+            className="p-2 text-white hover:text-yellow-400 transition"
+          >
+            <MdLogin className="text-2xl" />
+          </Link>
+          <Link
+            to="/signup"
+            className="p-2 text-white hover:text-yellow-400 transition"
+          >
+            <FaUser className="text-xl" />
+          </Link>
         </div>
 
         {/* Hamburger */}
@@ -100,7 +122,7 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu with smooth height animation */}
+      {/* Mobile Menu */}
       <div
         className={`md:hidden bg-black text-white flex flex-col items-center gap-4 overflow-hidden transition-[max-height] duration-500 ease-out ${
           isOpen ? "max-h-[500px] py-4" : "max-h-0 py-0"
