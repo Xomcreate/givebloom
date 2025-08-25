@@ -9,25 +9,26 @@ import {
   FaRegCommentDots,
   FaSignOutAlt,
 } from "react-icons/fa";
-// import UserDashboardHome from "../UserMenuComponents/UserDashboardHome";
-// import Donate from "../UserMenuComponents/Donate";
-// import MyDonations from "../UserMenuComponents/MyDonations";
-// import MyVolunteering from "../UserMenuComponents/MyVolunteering";
-// import Profile from "../UserMenuComponents/Profile";
-// import UserContacts from "../UserMenuComponents/UserContacts";
-// import UserReviews from "../UserMenuComponents/UserReviews";
+import UserProfile from "../UserDashBoardComponets/UserProfile";
+import UserDash from "../UserDashBoardComponets/UserDash";
+import UserDonate from "../UserDashBoardComponets/UserDonate";
+import UserVolunteer from "../UserDashBoardComponets/UserVolunteer";
+import UserBagdes from "../UserDashBoardComponets/UserBagdes";
+import UserReferral from "../UserDashBoardComponets/UserReferral";
+
+
 
 function User() {
   const [activeTab, setActiveTab] = useState("dashboard");
 
   const menuItems = [
     { name: "Dashboard", icon: <FaTachometerAlt />, key: "dashboard" },
-    { name: "Donate", icon: <FaDonate />, key: "donate" },
+    { name: "Profile", icon: <FaDonate />, key: "profile" },
     { name: "My Donations", icon: <FaHandsHelping />, key: "mydonations" },
     { name: "Volunteering", icon: <FaHandsHelping />, key: "volunteering" },
-    { name: "Profile", icon: <FaUser />, key: "profile" },
-    { name: "Contacts", icon: <FaEnvelope />, key: "contacts" },
-    { name: "Reviews", icon: <FaRegCommentDots />, key: "reviews" },
+     { name: "Achievement", icon: <FaHandsHelping />, key: "achievement" },
+        { name: "Referral", icon: <FaHandsHelping />, key: "ref" },
+  
   ];
 
   return (
@@ -68,13 +69,13 @@ function User() {
 
       {/* Main Content */}
       <main className="flex-1 p-6 overflow-y-auto">
-        {/* {activeTab === "dashboard" && <UserDashboardHome />} */}
-        {/* {activeTab === "donate" && <Donate />}
-        {activeTab === "mydonations" && <MyDonations />}
-        {activeTab === "volunteering" && <MyVolunteering />}
-        {activeTab === "profile" && <Profile />}
-        {activeTab === "contacts" && <UserContacts />}
-        {activeTab === "reviews" && <UserReviews />} */}
+        {activeTab === "dashboard" && <UserDash/>}
+        {activeTab === "profile" && <UserProfile/>}
+        {activeTab === "mydonations" && <UserDonate />}
+        {activeTab === "volunteering" && <UserVolunteer />}
+        {activeTab === "achievement" && <UserBagdes />}
+          {activeTab === "ref" && <UserReferral />}
+     
       </main>
     </div>
   );
