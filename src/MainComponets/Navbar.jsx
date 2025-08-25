@@ -40,12 +40,12 @@ function Navbar() {
     <nav
       className={`transition-all duration-300 ${
         scrolled
-          ? "fixed top-0 left-0 w-full md:left-1/2 md:-translate-x-1/2 md:w-3/4 bg-black/70 backdrop-blur-md z-50 md:rounded-xl rounded-none"
-          : "w-full bg-black md:w-full"
+          ? "fixed top-0 left-0 w-full lg:left-1/2 lg:-translate-x-1/2 lg:w-3/4 bg-black/70 backdrop-blur-md z-50 lg:rounded-xl rounded-none"
+          : "w-full bg-black lg:w-full"
       }`}
     >
-      {/* Desktop Navbar */}
-      <div className="hidden md:grid grid-cols-8 items-center px-6 h-[10vh]">
+      {/* Desktop Navbar for large screens */}
+      <div className="hidden lg:grid grid-cols-8 items-center px-6 h-[10vh]">
         {/* Left: Logo */}
         <div className="col-span-2 flex items-center justify-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
@@ -83,8 +83,8 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navbar */}
-      <div className="md:hidden flex items-center justify-between px-4 py-3 h-[10vh]">
+      {/* Mobile & iPad Navbar */}
+      <div className="lg:hidden flex items-center justify-between px-4 py-3 h-[10vh]">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
@@ -95,7 +95,7 @@ function Navbar() {
           </h1>
         </div>
 
-        {/* Centered Login + Signup icons */}
+        {/* Login + Signup icons */}
         <div className="flex items-center gap-4">
           <Link
             to="/login"
@@ -124,9 +124,9 @@ function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile & iPad Menu */}
       <div
-        className={`md:hidden bg-black text-white flex flex-col items-center gap-4 overflow-hidden transition-[max-height] duration-500 ease-out ${
+        className={`lg:hidden bg-black text-white flex flex-col items-center gap-4 overflow-hidden transition-[max-height] duration-500 ease-out ${
           isOpen ? "max-h-[500px] py-4" : "max-h-0 py-0"
         }`}
       >
