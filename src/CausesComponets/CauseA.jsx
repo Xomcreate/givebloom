@@ -1,5 +1,4 @@
 import React from "react";
-import causesImage from "../assets/box.jpg"; // replace with your hero image
 import { FaBook, FaHeartbeat, FaWater, FaUtensils } from "react-icons/fa";
 
 function CauseA() {
@@ -13,7 +12,7 @@ function CauseA() {
   return (
     <section
       className="relative w-full min-h-[70vh] md:min-h-[80vh] bg-cover bg-center flex flex-col items-center justify-center"
-      style={{ backgroundImage: `url(${causesImage})` }}
+      style={{ backgroundImage: `url(/Images/box.jpg)` }} // updated path
     >
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/60"></div>

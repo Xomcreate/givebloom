@@ -2,14 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { FaHandsHelping } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom'; // ✅ import navigation
-import img1 from '../assets/so.jpg';
-import img2 from '../assets/lunch.jpg';
-import img3 from '../assets/teach.jpg';
-import img4 from '../assets/do.jpg';
-import img5 from '../assets/ka.jpg';
 
 function GalleryA() {
-  const images = [img1, img2, img3, img4, img5];
+  const images = [
+    '/Images/so.jpg',
+    '/Images/lunch.jpg',
+    '/Images/teach.jpg',
+    '/Images/do.jpg',
+    '/Images/ka.jpg',
+  ];
   const loopImages = [...images, ...images]; // Duplicate images for loop
   const navigate = useNavigate(); // ✅ initialize navigate
 
@@ -24,9 +25,15 @@ function GalleryA() {
         {loopImages.map((img, index) => (
           <div
             key={index}
-            className="w-screen h-full bg-cover bg-center flex-shrink-0"
-            style={{ backgroundImage: `url(${img})` }}
-          ></div>
+            className="w-screen h-full flex-shrink-0 relative"
+          >
+            <img
+              src={img}
+              alt={`Gallery ${index + 1}`}
+              className="w-full h-full object-cover"
+              loading="lazy" // ✅ lazy loading
+            />
+          </div>
         ))}
       </motion.div>
 

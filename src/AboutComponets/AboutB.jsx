@@ -1,6 +1,4 @@
 import React from "react";
-import missionImg from "../assets/too.jpg"; // replace with your mission image
-import visionImg from "../assets/kid.jpg"; // replace with your vision image
 import { FaBullseye, FaRegLightbulb } from "react-icons/fa";
 
 function AboutB() {
@@ -24,9 +22,10 @@ function AboutB() {
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition flex flex-col h-[500px]">
           <div className="relative h-64">
             <img
-              src={missionImg}
+              src="/Images/too.jpg" // updated path
               alt="Our Mission"
               className="w-full h-full object-cover"
+              loading="lazy" // ✅ lazy load
             />
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <FaBullseye className="text-yellow-400 text-6xl" />
@@ -49,9 +48,10 @@ function AboutB() {
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden hover:shadow-2xl transition flex flex-col h-[500px]">
           <div className="relative h-64">
             <img
-              src={visionImg}
+              src="/Images/kid.jpg" // updated path
               alt="Our Vision"
               className="w-full h-full object-cover"
+              loading="lazy" // ✅ lazy load
             />
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <FaRegLightbulb className="text-yellow-400 text-6xl" />

@@ -1,14 +1,18 @@
 import React from "react";
-import splashImage from "../assets/coin.jpg"; // replace with your splash image
 import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom"; // ✅ import Link
+import { Link } from "react-router-dom";
 
 function AboutA() {
   return (
-    <div
-      className="relative w-full h-[60vh] md:h-[75vh] bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: `url(${splashImage})` }}
-    >
+    <div className="relative w-full h-[60vh] md:h-[75vh] flex items-center justify-center overflow-hidden">
+      {/* Lazy-loaded background image */}
+      <img
+        src="/Images/coin.jpg"
+        alt="About Background"
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import testimonialImage from "../assets/happy.jpg"; // ✅ use your jpg file
 
 function TestA() {
   return (
@@ -23,7 +22,7 @@ function TestA() {
           <span className="font-semibold">— Sophia Lee</span>
         </motion.div>
 
-        {/* Hero Image */}
+        {/* Hero Image from public/images */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -31,9 +30,10 @@ function TestA() {
           className="hidden md:block md:w-1/2"
         >
           <img
-            src={testimonialImage} // ✅ using local asset
+            src="/Images/happy.jpg" // ✅ public/images path
             alt="Testimonial Hero"
             className="rounded-2xl shadow-xl"
+            loading="lazy" // ✅ lazy loading
           />
         </motion.div>
       </div>

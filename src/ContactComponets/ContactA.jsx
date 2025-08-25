@@ -1,12 +1,11 @@
 import React from "react";
-import heroImage from "../assets/call.jpg"; // replace with your image path
 import { FaHandsHelping } from "react-icons/fa";
 
 function ContactA() {
   return (
     <div
       className="w-full h-[60vh] md:h-[75vh] bg-cover bg-center relative flex items-center justify-center"
-      style={{ backgroundImage: `url(${heroImage})` }}
+      style={{ backgroundImage: `url(/Images/call.jpg)` }} // ✅ use public/images
     >
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/50"></div>

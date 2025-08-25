@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import heroImage from "../assets/mich.jpg"; // replace with your donation image
 import { FaHandsHelping } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -33,7 +32,7 @@ function DonateA() {
   return (
     <div
       className="w-full h-[60vh] md:h-[75vh] bg-cover bg-center relative flex items-center justify-center"
-      style={{ backgroundImage: `url(${heroImage})` }}
+      style={{ backgroundImage: `url(/Images/mich.jpg)` }} // ✅ use public/images
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>

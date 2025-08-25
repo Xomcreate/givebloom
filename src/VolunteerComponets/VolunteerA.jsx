@@ -1,14 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaUsers } from 'react-icons/fa';
-import heroImage from '../assets/shit.jpg'; // replace with your hero image
 
 function VolunteerA() {
   return (
-    <div
-      className="w-full h-[70vh] md:h-[80vh] bg-cover bg-center relative flex items-center justify-center"
-      style={{ backgroundImage: `url(${heroImage})` }}
-    >
+    <div className="w-full h-[70vh] md:h-[80vh] relative flex items-center justify-center overflow-hidden">
+      {/* Hero Image from public/images */}
+      <img
+        src="/Images/shit.jpg"
+        alt="Volunteer Hero"
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        loading="lazy" // ✅ lazy loading
+      />
+
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60"></div>
 
@@ -50,9 +54,8 @@ function VolunteerA() {
 
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4">
-          {/* Volunteer Button */}
           <motion.a
-            href="#volunteerd" // ✅ scrolls to VolunteerD section
+            href="#volunteerd"
             whileHover={{
               scale: 1.05,
               boxShadow: '0px 0px 20px rgba(255,255,255,0.8)',
@@ -62,9 +65,8 @@ function VolunteerA() {
             Become a Volunteer
           </motion.a>
 
-          {/* Partner Button */}
           <motion.a
-            href="#volunteerd" // ✅ same anchor, goes to same form
+            href="#volunteerd"
             whileHover={{
               scale: 1.05,
               boxShadow: '0px 0px 20px rgba(255,255,255,0.8)',

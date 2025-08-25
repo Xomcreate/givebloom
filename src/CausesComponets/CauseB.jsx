@@ -2,55 +2,47 @@ import React, { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, useAnimation, useInView } from "framer-motion";
 
-// Example images
-import educationImg from "../assets/ee.jpg";
-import healthImg from "../assets/hospital.jpg";
-import foodImg from "../assets/vol.jpg";
-import shelterImg from "../assets/how.jpg";
-import waterImg from "../assets/water.jpg";
-import empowermentImg from "../assets/lo.jpg";
-
 const causes = [
   {
     title: "Education for Every Child",
     description:
       "We believe education is the foundation of a brighter future. Your support helps us provide books, uniforms, school fees, and access to quality education for children who would otherwise miss out on learning opportunities.",
-    image: educationImg,
+    image: "/Images/ee.jpg", // updated path
     progress: 80,
   },
   {
     title: "Healthcare Access",
     description:
       "Access to healthcare can change lives. Your donations help fund vaccinations, medical check-ups, and essential treatments for children and families in underserved communities, keeping them healthy and safe.",
-    image: healthImg,
+    image: "/Images/hospital.jpg",
     progress: 65,
   },
   {
     title: "Food & Nutrition",
     description:
       "Hunger should never limit a child’s potential. By contributing to our food programs, you help deliver nutritious meals and essential supplements to communities struggling with malnutrition and food insecurity.",
-    image: foodImg,
+    image: "/Images/vol.jpg",
     progress: 75,
   },
   {
     title: "Safe Shelter",
     description:
       "A safe home provides stability and hope. Your generosity allows us to build and repair homes for families living in unsafe or inadequate conditions, giving them a place to thrive and feel secure.",
-    image: shelterImg,
+    image: "/Images/how.jpg",
     progress: 50,
   },
   {
     title: "Clean Water Initiative",
     description:
       "Water is life. We implement projects that provide access to clean and safe drinking water, helping to reduce waterborne diseases and improve health, hygiene, and quality of life for entire communities.",
-    image: waterImg,
+    image: "/Images/water.jpg",
     progress: 90,
   },
   {
     title: "Women Empowerment",
     description:
       "Empowering women strengthens families and communities. Your support helps provide skills training, microloans, and educational programs to women, allowing them to achieve financial independence and create a sustainable future.",
-    image: empowermentImg,
+    image: "/Images/lo.jpg",
     progress: 70,
   },
 ];
@@ -77,6 +69,7 @@ function CauseCard({ cause, navigate }) {
         src={cause.image}
         alt={cause.title}
         className="w-full h-56 object-cover"
+        loading="lazy" // added lazy loading
       />
       <div className="p-6 flex flex-col items-center w-full">
         <h3 className="text-xl font-semibold mb-3">{cause.title}</h3>

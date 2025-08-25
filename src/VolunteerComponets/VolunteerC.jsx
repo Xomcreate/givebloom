@@ -1,13 +1,10 @@
 import React from 'react';
-import volunteer1 from '../assets/woman.jpg'; // placeholder image
-import volunteer2 from '../assets/close.jpg';
-import volunteer3 from '../assets/hii.jpg';
 
 function VolunteerC() {
   const volunteers = [
-    { image: volunteer1, name: 'Grace Oladipo', role: 'Volunteer Coordinator', description: 'Passionate about helping communities and making an impact.' },
-    { image: volunteer2, name: 'Arjun 🇮🇳', role: 'Community Volunteer', description: 'Dedicated to improving lives through consistent support.' },
-    { image: volunteer3, name: 'Elena Kovacs', role: 'Event Organizer', description: 'Bringing people together to create meaningful change.' },
+    { image: '/Images/woman.jpg', name: 'Grace Oladipo', role: 'Volunteer Coordinator', description: 'Passionate about helping communities and making an impact.' },
+    { image: '/Images/close.jpg', name: 'Arjun 🇮🇳', role: 'Community Volunteer', description: 'Dedicated to improving lives through consistent support.' },
+    { image: '/Images/hii.jpg', name: 'Elena Kovacs', role: 'Event Organizer', description: 'Bringing people together to create meaningful change.' },
   ];
 
   return (
@@ -30,6 +27,7 @@ function VolunteerC() {
               <img
                 src={vol.image}
                 alt={vol.name}
+                loading="lazy" // ✅ lazy loading
                 className="w-32 h-32 rounded-full object-cover mb-4"
               />
               <h3 className="text-xl font-bold mb-1 text-black">{vol.name}</h3>

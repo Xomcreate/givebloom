@@ -1,7 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function HomeA() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative w-full h-[80vh] overflow-hidden">
       {/* Background Video */}
@@ -12,6 +15,7 @@ function HomeA() {
         loop
         muted
         playsInline
+        preload="none" // ✅ lazy load
       ></video>
 
       {/* Dark Overlay */}
@@ -42,9 +46,13 @@ function HomeA() {
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          className="px-4 sm:px-6 py-2 sm:py-3 bg-yellow-400 hover:bg-yellow-500 text-black text-sm sm:text-lg rounded-full shadow-lg transition"
+          onClick={() => navigate("/volunteer")}
+          className="px-4 sm:px-6 py-2 sm:py-3 bg-yellow-400 hover:bg-yellow-500 text-black text-sm sm:text-lg rounded-full shadow-lg transition flex items-center gap-2"
         >
           Be Part of the Story
+          <span className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
+            ↗
+          </span>
         </motion.button>
       </div>
 
@@ -57,7 +65,7 @@ function HomeA() {
           viewBox="0 0 1440 320"
         >
           <path
-            fill="#F9FAFB" // Tailwind gray-50
+            fill="#F9FAFB"
             fillOpacity="1"
             d="M0,160L80,149.3C160,139,320,117,480,128C640,139,800,181,960,181.3C1120,181,1280,139,1360,117.3L1440,96L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
           ></path>

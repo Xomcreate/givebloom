@@ -54,6 +54,7 @@ function AboutC() {
             src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
             alt="Helping hands"
             className="w-full h-72 object-cover rounded-2xl shadow-md"
+            loading="lazy" // ✅ lazy load
           />
           <motion.img
             initial={{ opacity: 0, x: 60 }}
@@ -63,6 +64,7 @@ function AboutC() {
             src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80"
             alt="Donation support"
             className="w-full h-72 object-cover rounded-2xl shadow-md"
+            loading="lazy" // ✅ lazy load
           />
         </div>
       </div>

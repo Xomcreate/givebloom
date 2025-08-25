@@ -1,12 +1,11 @@
 import React from "react";
-import heroImage from "../assets/charity.jpg"; // replace with your blog hero image
 import { FaBookOpen } from "react-icons/fa";
 
 function BlogA() {
   return (
     <div
       className="w-full h-[60vh] md:h-[75vh] bg-cover bg-center relative flex items-center justify-center"
-      style={{ backgroundImage: `url(${heroImage})` }}
+      style={{ backgroundImage: `url(/Images/charity.jpg)` }} // updated path
     >
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
