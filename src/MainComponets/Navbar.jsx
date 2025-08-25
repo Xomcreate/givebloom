@@ -23,8 +23,7 @@ function Navbar() {
   // Detect scroll
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) setScrolled(true);
-      else setScrolled(false);
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -41,11 +40,11 @@ function Navbar() {
       className={`transition-all duration-300 ${
         scrolled
           ? "fixed top-0 left-0 w-full bg-black/70 backdrop-blur-md z-50 rounded-none"
-          : "w-full bg-black lg:w-full"
+          : "w-full bg-black xl:w-full"
       }`}
     >
-      {/* Desktop Navbar for large screens */}
-      <div className="hidden lg:grid grid-cols-8 items-center px-6 h-[10vh]">
+      {/* Desktop Navbar for extra-large screens (xl) */}
+      <div className="hidden xl:grid grid-cols-8 items-center px-6 h-[10vh]">
         {/* Left: Logo */}
         <div className="col-span-2 flex items-center justify-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
@@ -84,7 +83,7 @@ function Navbar() {
       </div>
 
       {/* Mobile & iPad Navbar */}
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 h-[10vh]">
+      <div className="xl:hidden flex items-center justify-between px-4 py-3 h-[10vh]">
         {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
@@ -126,7 +125,7 @@ function Navbar() {
 
       {/* Mobile & iPad Menu */}
       <div
-        className={`lg:hidden bg-black text-white flex flex-col items-center gap-4 overflow-hidden transition-[max-height] duration-500 ease-out ${
+        className={`xl:hidden bg-black text-white flex flex-col items-center gap-4 overflow-hidden transition-[max-height] duration-500 ease-out ${
           isOpen ? "max-h-[500px] py-4" : "max-h-0 py-0"
         }`}
       >
