@@ -40,7 +40,7 @@ function Navbar() {
     <nav
       className={`transition-all duration-300 ${
         scrolled
-          ? "fixed top-0 left-0 w-full lg:left-1/2 lg:-translate-x-1/2 lg:w-3/4 bg-black/70 backdrop-blur-md z-50 lg:rounded-xl rounded-none"
+          ? "fixed top-0 left-0 w-full bg-black/70 backdrop-blur-md z-50 rounded-none"
           : "w-full bg-black lg:w-full"
       }`}
     >
