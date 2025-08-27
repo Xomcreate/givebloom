@@ -2,7 +2,6 @@ import React from "react";
 import { FaStar } from "react-icons/fa";
 
 function BlogE({ name, comment, rating = 0 }) {
-  // Get initials for avatar
   const initials = name
     .split(" ")
     .map((n) => n[0])

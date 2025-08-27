@@ -1,36 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import BlogE from "./BlogE";
 
-function BlogD() {
-  const [comments, setComments] = useState([
-    { id: 1, name: "Alice Johnson", comment: "This is such an inspiring post!", rating: 5 },
-    { id: 2, name: "Mark Smith", comment: "I love how you are making a difference.", rating: 4 },
-  ]);
+const API_BASE = "http://localhost:5000/api";
 
+function BlogD() {
+  const [comments, setComments] = useState([]);
+  const [newName, setNewName] = useState("");
   const [newComment, setNewComment] = useState("");
   const [newRating, setNewRating] = useState(0);
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  // Fetch only approved reviews
+  useEffect(() => {
+    axios.get(`${API_BASE}/reviews`)
+      .then(res => {
+        const approved = res.data.filter(r => r.approved);
+        setComments(approved);
+      })
+      .catch(err => console.log(err));
+  }, []);
+
+  // Submit new review
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (newComment.trim() === "") return;
+    if (!newComment || !newName) return;
 
-    setComments([
-      { id: comments.length + 1, name: "Anonymous", comment: newComment, rating: newRating },
-      ...comments,
-    ]);
-    setNewComment("");
-    setNewRating(0);
+    try {
+      await axios.post(`${API_BASE}/reviews`, {
+        name: newName,
+        comment: newComment,
+        rating: newRating,
+      });
+
+      setNewName("");
+      setNewComment("");
+      setNewRating(0);
+
+      setSuccessMessage("Review submitted successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000); // clear message after 3s
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <div className="w-full bg-gray-50 py-16 px-6 md:px-20">
       <div className="max-w-7xl mx-auto">
-        {/* Section Title */}
         <h2 className="text-2xl md:text-3xl font-bold text-yellow-400 text-center mb-8">
           Comments & Reviews
         </h2>
 
-        {/* Comment Form */}
         <form
           onSubmit={handleSubmit}
           className="bg-white rounded-2xl shadow-md p-6 mb-10 text-center sm:text-left"
@@ -38,6 +58,15 @@ function BlogD() {
           <h3 className="text-lg font-semibold text-yellow-400 mb-3">
             Write a Comment
           </h3>
+
+          <input
+            type="text"
+            placeholder="Your Name"
+            className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+          />
+
           <textarea
             className="w-full p-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             rows="4"
@@ -46,7 +75,6 @@ function BlogD() {
             onChange={(e) => setNewComment(e.target.value)}
           />
 
-          {/* Star Rating Input */}
           <div className="flex justify-center sm:justify-start items-center mb-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <button
@@ -70,18 +98,15 @@ function BlogD() {
           >
             Submit
           </button>
+
+          {successMessage && (
+            <p className="text-green-500 mt-3 font-semibold">{successMessage}</p>
+          )}
         </form>
 
-        {/* Comments Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-center sm:text-left">
-          {comments.map((c, i) => (
-            <BlogE
-              key={c.id}
-              name={c.name}
-              comment={c.comment}
-              rating={c.rating}
-              index={i}
-            />
+          {comments.map((c) => (
+            <BlogE key={c._id} name={c.name} comment={c.comment} rating={c.rating} />
           ))}
         </div>
       </div>

@@ -1,17 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 function ContactB() {
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.2 },
-    },
+    visible: { transition: { staggerChildren: 0.2 } },
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
+  // Form state
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSuccessMessage("");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await res.json();
+
+      if (res.ok) {
+        setSuccessMessage(result.message || "Message saved successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        setErrorMessage(result.message || "Failed to send message.");
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setErrorMessage("Server error. Try again later.");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -43,42 +95,81 @@ function ContactB() {
 
           {/* Form */}
           <div className="bg-white shadow-xl p-8 rounded-xl w-full max-w-lg flex-1">
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+            <form
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full"
+              onSubmit={handleSubmit}
+            >
               <input
                 type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
                 placeholder="First Name*"
                 className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                required
+                disabled={loading}
               />
               <input
                 type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
                 placeholder="Last Name*"
                 className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                required
+                disabled={loading}
               />
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Email Address*"
                 className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                required
+                disabled={loading}
               />
               <input
                 type="text"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
                 placeholder="Phone Number*"
                 className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                required
+                disabled={loading}
               />
 
-              {/* Textarea full width */}
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Your Message*"
                 rows={4}
                 className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                required
+                disabled={loading}
               ></textarea>
 
-              {/* Button full width */}
               <button
                 type="submit"
-                className="col-span-1 md:col-span-2 H text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:scale-105 transition transform"
+                disabled={loading}
+                className="col-span-1 md:col-span-2 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:scale-105 transition transform"
               >
-                Send Message
+                {loading ? "Sending..." : "Send Message"}
               </button>
+
+              {/* Success & Error Messages */}
+              {successMessage && (
+                <p className="col-span-1 md:col-span-2 text-green-600 font-semibold mt-2">
+                  {successMessage}
+                </p>
+              )}
+              {errorMessage && (
+                <p className="col-span-1 md:col-span-2 text-red-600 font-semibold mt-2">
+                  {errorMessage}
+                </p>
+              )}
             </form>
           </div>
         </motion.div>
@@ -94,7 +185,7 @@ function ContactB() {
             width="100%"
             height="100%"
             className="border-0 w-full h-full"
-            allowFullScreen=""
+            allowFullScreen
             loading="lazy"
           ></iframe>
         </motion.div>

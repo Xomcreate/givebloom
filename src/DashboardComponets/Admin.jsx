@@ -9,6 +9,7 @@ import {
   FaUsers,
   FaEnvelope,
   FaRegCommentDots,
+  FaBell,
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
@@ -20,6 +21,7 @@ import Volunteermanage from "../DashBoardMenuComponets/Volunteermanage";
 import UserManage from "../DashBoardMenuComponets/UserManage";
 import ContactManage from "../DashBoardMenuComponets/ContactManage";
 import ReviewManage from "../DashBoardMenuComponets/ReviewManage";
+import Subscribe from "../DashBoardMenuComponets/Subscribe";
 
 
 function Admin() {
@@ -34,6 +36,7 @@ function Admin() {
     { name: "Users", icon: <FaUsers />, key: "users" },
     { name: "Contacts", icon: <FaEnvelope />, key: "contacts" },
     { name: "Reviews", icon: <FaRegCommentDots />, key: "reviews" },
+   { name: "Subscription", icon: <FaBell />, key: "subscribe" }, 
   ];
 
   return (
@@ -86,6 +89,7 @@ function Admin() {
         {activeTab === "users" && <UserManage/>}
         {activeTab === "contacts" && <ContactManage/>}
         {activeTab === "reviews" && <ReviewManage/>}
+         {activeTab === "subscribe" && <Subscribe/>}
       
       </main>
     </div>
