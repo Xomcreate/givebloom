@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { FaHandsHelping, FaUser } from "react-icons/fa";
 import { HiMenu, HiX } from "react-icons/hi";
-import { MdLogin } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { MdLogin, MdLogout, MdDashboard } from "react-icons/md";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const [role, setRole] = useState(localStorage.getItem("role") || null);
 
   const menuItems = [
     { name: "Home", path: "/" },
@@ -22,18 +25,24 @@ function Navbar() {
 
   // Detect scroll
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll to top on route change
+  // Scroll to top & update role on route change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     setIsOpen(false);
+    setRole(localStorage.getItem("role"));
   }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    setRole(null);
+    navigate("/");
+  };
 
   return (
     <nav
@@ -43,19 +52,15 @@ function Navbar() {
           : "w-full bg-black xl:w-full"
       }`}
     >
-      {/* Desktop Navbar for extra-large screens (xl) */}
+      {/* Desktop Navbar */}
       <div className="hidden xl:grid grid-cols-8 items-center px-6 h-[10vh]">
-        {/* Left: Logo */}
         <div className="col-span-2 flex items-center justify-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-3xl font-bold tracking-wide text-white">
-            GiveBloom
-          </h1>
+          <h1 className="text-3xl font-bold tracking-wide text-white">GiveBloom</h1>
         </div>
 
-        {/* Center: Menu */}
         <div className="col-span-4 flex justify-center gap-8 text-white text-lg font-medium">
           {menuItems.map((item, idx) => (
             <Link
@@ -68,58 +73,61 @@ function Navbar() {
           ))}
         </div>
 
-        {/* Right: Donate Button */}
-        <div className="col-span-2 flex justify-center">
-          <Link
-            to="/donate"
-            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
-          >
-            Donate
-            <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
-              ↗
-            </div>
-          </Link>
+        {/* Right: Donate / Dashboard / Logout */}
+        <div className="col-span-2 flex justify-center gap-4">
+          {!role && (
+            <Link
+              to="/donate"
+              className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+            >
+              Donate
+              <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">↗</div>
+            </Link>
+          )}
         </div>
       </div>
 
       {/* Mobile & iPad Navbar */}
       <div className="xl:hidden flex items-center justify-between px-4 py-3 h-[10vh]">
-        {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-xl font-bold tracking-wide text-white">
-            GiveBloom
-          </h1>
+          <h1 className="text-xl font-bold tracking-wide text-white">GiveBloom</h1>
         </div>
 
-        {/* Login + Signup icons */}
+        {/* Login/Signup or Logout/Dashboard icons */}
         <div className="flex items-center gap-4">
-          <Link
-            to="/login"
-            className="p-2 text-white hover:text-yellow-400 transition"
-          >
-            <MdLogin className="text-2xl" />
-          </Link>
-          <Link
-            to="/signup"
-            className="p-2 text-white hover:text-yellow-400 transition"
-          >
-            <FaUser className="text-xl" />
-          </Link>
+          {!role ? (
+            <>
+              <Link to="/login" className="p-2 text-white hover:text-yellow-400 transition">
+                <MdLogin className="text-2xl" />
+              </Link>
+              <Link to="/signup" className="p-2 text-white hover:text-yellow-400 transition">
+                <FaUser className="text-xl" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                to={role === "admin" ? "/donatee" : "/user"}
+                className="p-2 text-white hover:text-yellow-400 transition"
+              >
+                <MdDashboard className="text-2xl" />
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="p-2 text-white hover:text-red-600 transition"
+              >
+                <MdLogout className="text-2xl" />
+              </button>
+            </>
+          )}
         </div>
 
         {/* Hamburger */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 focus:outline-none"
-        >
-          {isOpen ? (
-            <HiX className="w-7 h-7 text-yellow-400" />
-          ) : (
-            <HiMenu className="w-7 h-7 text-yellow-400" />
-          )}
+        <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none">
+          {isOpen ? <HiX className="w-7 h-7 text-yellow-400" /> : <HiMenu className="w-7 h-7 text-yellow-400" />}
         </button>
       </div>
 
@@ -138,15 +146,15 @@ function Navbar() {
             {item.name}
           </Link>
         ))}
-        <Link
-          to="/donate"
-          className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
-        >
-          Donate
-          <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
-            ↗
-          </div>
-        </Link>
+        {!role && (
+          <Link
+            to="/donate"
+            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+          >
+            Donate
+            <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">↗</div>
+          </Link>
+        )}
       </div>
     </nav>
   );

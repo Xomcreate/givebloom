@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+import React, { useState, useEffect } from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const [showPwd, setShowPwd] = useState(false);
   const [pwd, setPwd] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(""); 
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
-  // donors for carousel
   const donors = [
     { name: "Adaora K.", quote: "Your kindness fuels our mission every day.", img: "https://i.pravatar.cc/51" },
     { name: "Emeka O.", quote: "Giving brings hope to those in need.", img: "https://i.pravatar.cc/52" },
@@ -20,23 +21,51 @@ function Login() {
     { name: "Ngozi P.", quote: "Compassion is the foundation of change.", img: "https://i.pravatar.cc/55" },
   ];
 
-  // auto swipe every 3s
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % donors.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [donors.length]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!email || !pwd) {
       setError("Please enter both email and password.");
+      setSuccess("");
       return;
     }
     setError("");
-    // TODO: hook to your login API
-    console.log("Login user…");
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password: pwd,
+      });
+
+      const { token, user } = res.data;
+
+      // Store token, role, and fullName for dashboard
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", user.role);
+      localStorage.setItem("userName", user.fullName);
+
+      // Notify other components of login change
+      window.dispatchEvent(new Event("storage"));
+
+      setSuccess("Login successful!");
+      setError("");
+
+      // Redirect after short delay
+      setTimeout(() => {
+        if (user.role === "admin") navigate("/donatee");
+        else navigate("/user");
+      }, 1000);
+    } catch (err) {
+      setError(err.response?.data?.message || "Login failed");
+      setSuccess("");
+    }
   };
 
   const container = {
@@ -64,8 +93,7 @@ function Login() {
             Sign in to <span className="text-yellow-400">continue giving</span>.
           </p>
           <p className="text-gray-300 mt-3 max-w-md">
-            Access your account, track your impact, and stay connected with
-            GiveBloom.
+            Access your account, track your impact, and stay connected with GiveBloom.
           </p>
 
           {/* Carousel */}
@@ -80,12 +108,7 @@ function Login() {
               >
                 <p className="text-sm text-center">“{d.quote}”</p>
                 <div className="flex items-center gap-3 mt-4">
-                  <img
-                    src={d.img}
-                    alt={d.name}
-                    className="w-10 h-10 rounded-full"
-                    loading="lazy"
-                  />
+                  <img src={d.img} alt={d.name} className="w-10 h-10 rounded-full" loading="lazy" />
                   <div className="text-left">
                     <p className="font-semibold leading-tight">{d.name}</p>
                     <p className="text-xs text-gray-500">GiveBloom Donor</p>
@@ -109,7 +132,6 @@ function Login() {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
             <div>
               <label className="block text-sm mb-2">Email</label>
               <input
@@ -122,7 +144,6 @@ function Login() {
               />
             </div>
 
-            {/* Password */}
             <div className="relative">
               <label className="block text-sm mb-2">Password</label>
               <input
@@ -144,7 +165,7 @@ function Login() {
               </button>
             </div>
 
-            {/* Forgot password */}
+            {/* Forgot password link */}
             <div className="text-right">
               <Link
                 to="/forgot-password"
@@ -154,18 +175,9 @@ function Login() {
               </Link>
             </div>
 
-            {/* Error */}
-            {error && (
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-sm text-red-600 text-center"
-              >
-                {error}
-              </motion.p>
-            )}
+            {success && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-green-600 text-center">{success}</motion.p>}
+            {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm text-red-600 text-center">{error}</motion.p>}
 
-            {/* Submit */}
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -175,29 +187,9 @@ function Login() {
               Login
             </motion.button>
 
-            {/* OR divider */}
-            <div className="flex items-center my-2">
-              <div className="flex-grow h-px bg-gray-300" />
-              <span className="px-3 text-sm text-gray-500">OR</span>
-              <div className="flex-grow h-px bg-gray-300" />
-            </div>
-
-            {/* Google */}
-            <motion.button
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.98 }}
-              type="button"
-              className="w-full flex items-center justify-center gap-3 border py-2 rounded-lg hover:bg-gray-50 transition"
-            >
-              <FcGoogle className="text-xl" />
-              <span className="font-medium">Sign in with Google</span>
-            </motion.button>
-
             <p className="text-sm text-gray-600 mt-4 text-center">
               Don’t have an account?{" "}
-              <Link to="/signup" className="text-yellow-500 font-semibold">
-                Sign Up
-              </Link>
+              <Link to="/signup" className="text-yellow-500 font-semibold">Sign Up</Link>
             </p>
           </form>
         </motion.div>

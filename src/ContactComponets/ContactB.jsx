@@ -47,7 +47,7 @@ function ContactB() {
       const result = await res.json();
 
       if (res.ok) {
-        setSuccessMessage(result.message || "Message saved successfully!");
+        setSuccessMessage("Message sent successfully! We'll notify you soon.");
         setFormData({
           firstName: "",
           lastName: "",

@@ -15,8 +15,9 @@ function BlogC() {
     setMessage(null);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/subscribe", { email });
-      setMessage({ type: "success", text: res.data.message });
+      await axios.post("http://localhost:5000/api/subscribe", { email });
+      // Simplified success message
+      setMessage({ type: "success", text: "Subscribed successfully" });
       setEmail("");
     } catch (err) {
       setMessage({

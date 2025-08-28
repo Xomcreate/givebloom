@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserCircle, FaDonate, FaHandsHelping, FaCalendarAlt } from "react-icons/fa";
 import { MdHistory } from "react-icons/md";
 
 function UserDash() {
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const name = localStorage.getItem("userName") || "User";
+    setUserName(name);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       {/* Welcome / Profile Section */}
       <div className="bg-white shadow rounded-xl p-6 mb-6 flex items-center justify-between border-l-4 border-yellow-400">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Welcome back, Prisca 👋</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Welcome back, {userName} 👋</h2>
           <p className="text-gray-500">Here’s an overview of your impact</p>
         </div>
         <FaUserCircle className="text-5xl text-yellow-400" />
@@ -72,7 +79,6 @@ function UserDash() {
 
       {/* Impact / Upcoming Campaigns */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Impact Stories */}
         <div className="bg-white shadow rounded-xl p-6">
           <h3 className="text-xl font-bold text-gray-800 mb-4">Your Impact</h3>
           <p className="text-gray-600 mb-2">
@@ -83,7 +89,6 @@ function UserDash() {
           </p>
         </div>
 
-        {/* Upcoming Events */}
         <div className="bg-white shadow rounded-xl p-6">
           <h3 className="text-xl font-bold text-gray-800 mb-4">Upcoming Campaigns</h3>
           <ul className="text-gray-600 space-y-3">

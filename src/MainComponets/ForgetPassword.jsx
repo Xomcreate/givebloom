@@ -1,57 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-function ForgetPassword() {
+function ForgetPassword({ setStep, setEmailProp }) {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    setError("");
+
+    try {
+      const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Something went wrong");
+
+      setMessage(data.message);
+      setEmailProp(email);  // Pass email to next step
+      setTimeout(() => setStep(2), 1500); // go to code verification
+    } catch (err) {
+      setError(err.message || "Error sending reset code");
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8"
+        className="w-full max-w-md bg-gray-50 rounded-2xl shadow-lg p-8"
       >
-        {/* Heading */}
-        <h2 className="text-2xl font-bold text-gray-800 text-center">
-          Forgot Password
-        </h2>
-        <p className="mt-2 text-gray-500 text-center text-sm">
-          Enter your email address and we’ll send you a link to reset your password.
-        </p>
+        <h2 className="text-2xl font-bold text-black text-center mb-3">Forgot Password</h2>
+        <p className="text-black text-center mb-4">Enter your email to get a 4-digit reset code</p>
 
-        {/* Form */}
-        <form className="mt-6 space-y-5">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="you@example.com"
-              className="mt-2 w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-black focus:outline-none"
-            />
-          </div>
+        {error && <p className="text-red-700 text-center">{error}</p>}
+        {message && <p className="text-green-800 text-center">{message}</p>}
 
-          <button
-            type="submit"
-            className="w-full py-3 bg-black text-white rounded-xl font-semibold shadow-md hover:bg-gray-800 transition duration-300"
-          >
-            Send Reset Link
-          </button>
+        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+            className="w-full px-4 py-3 rounded-xl focus:outline-none border border-black"
+            required
+          />
+          <button className="w-full py-3 bg-yellow-400 text-black rounded-xl font-bold">Send Code</button>
         </form>
-
-        {/* Back to login */}
-        <div className="mt-6 text-center">
-          <a
-            href="/login"
-            className="text-sm text-gray-600 hover:text-black font-medium"
-          >
-            Back to Login
-          </a>
-        </div>
       </motion.div>
     </div>
   );
