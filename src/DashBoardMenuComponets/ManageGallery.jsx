@@ -1,42 +1,160 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function ManageGallery() {
-  const galleryItems = [
-    { id: 1, image: "https://via.placeholder.com/300", title: "Charity Event 1" },
-    { id: 2, image: "https://via.placeholder.com/300", title: "Charity Event 2" },
-    { id: 3, image: "https://via.placeholder.com/300", title: "Donation Drive" },
-    { id: 4, image: "https://via.placeholder.com/300", title: "Outreach Program" },
-  ];
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [formData, setFormData] = useState({
+    title: "",
+    caption: "",
+    isPublic: true,
+    image: null,
+  });
+  const [loading, setLoading] = useState(false);
+
+  // Fetch all gallery items (admin)
+  const fetchGallery = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/gallery");
+      setGalleryItems(res.data);
+    } catch (error) {
+      console.error("Error fetching gallery:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchGallery();
+  }, []);
+
+  // Handle input changes
+  const handleChange = (e) => {
+    const { name, value, type, checked, files } = e.target;
+    if (type === "file") {
+      setFormData({ ...formData, image: files[0] });
+    } else if (type === "checkbox") {
+      setFormData({ ...formData, [name]: checked });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  // Submit form (add new image)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.image) {
+      alert("Please select an image.");
+      return;
+    }
+
+    const data = new FormData();
+    data.append("title", formData.title);
+    data.append("caption", formData.caption);
+    data.append("isPublic", formData.isPublic);
+    data.append("image", formData.image);
+
+    try {
+      setLoading(true);
+      await axios.post("http://localhost:5000/api/gallery", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setFormData({ title: "", caption: "", isPublic: true, image: null });
+      fetchGallery();
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete image
+  const handleDelete = async (id) => {
+    if (!window.confirm("Delete this image?")) return;
+    try {
+      await axios.delete(`http://localhost:5000/api/gallery/${id}`);
+      fetchGallery();
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Header Section */}
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-[#1a1a1a]">Manage Gallery</h2>
-        <button className="px-4 py-2 bg-[#1a1a1a] text-yellow-400 rounded-lg hover:bg-yellow-500 hover:text-[#1a1a1a] transition">
-          + Add Image
+      {/* Header */}
+      <h2 className="text-2xl font-semibold text-[#1a1a1a] mb-6">
+        Manage Gallery
+      </h2>
+
+      {/* Upload Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-4 rounded-lg shadow-md mb-6"
+      >
+        <input
+          type="text"
+          name="title"
+          value={formData.title}
+          onChange={handleChange}
+          placeholder="Title"
+          className="w-full mb-2 p-2 border rounded"
+          required
+        />
+        <input
+          type="text"
+          name="caption"
+          value={formData.caption}
+          onChange={handleChange}
+          placeholder="Caption"
+          className="w-full mb-2 p-2 border rounded"
+        />
+        <label className="flex items-center gap-2 mb-2">
+          <input
+            type="checkbox"
+            name="isPublic"
+            checked={formData.isPublic}
+            onChange={handleChange}
+          />
+          Public
+        </label>
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleChange}
+          className="mb-2"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="px-4 py-2 bg-[#1a1a1a] text-yellow-400 rounded-lg hover:bg-yellow-500 hover:text-[#1a1a1a] transition"
+        >
+          {loading ? "Uploading..." : "+ Add Image"}
         </button>
-      </div>
+      </form>
 
       {/* Gallery Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {galleryItems.map((item) => (
           <div
-            key={item.id}
+            key={item._id}
             className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
           >
             <img
-              src={item.image}
+              src={`http://localhost:5000${item.image}`}
               alt={item.title}
               className="w-full h-40 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-md font-medium text-[#1a1a1a]">{item.title}</h3>
+              <h3 className="text-md font-medium text-[#1a1a1a]">
+                {item.title}
+              </h3>
+              <p className="text-sm text-gray-600">{item.caption}</p>
               <div className="flex justify-between mt-3">
                 <button className="px-3 py-1 text-sm bg-yellow-400 text-[#1a1a1a] rounded hover:bg-yellow-500">
                   Edit
                 </button>
-                <button className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700">
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
+                >
                   Delete
                 </button>
               </div>

@@ -1,28 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
 
 function VolunteerD() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    interest: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    interest: "Volunteer",
+    message: "",
   });
+
+  const [statusMessage, setStatusMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can integrate your backend API here
-    console.log('Form submitted:', formData);
-    alert('Thank you for signing up! We will contact you soon.');
-    setFormData({ name: '', email: '', phone: '', interest: '', message: '' });
+    setStatusMessage("");
+    try {
+      await axios.post("http://localhost:5000/api/volunteers", formData);
+      setStatusMessage("✅ Thank you for signing up! We will contact you soon.");
+      setFormData({ name: "", email: "", phone: "", interest: "Volunteer", message: "" });
+    } catch (err) {
+      setStatusMessage("❌ Error submitting form: " + (err.response?.data?.error || err.message));
+    }
   };
 
   return (
-    <div id='volunteerd' className="w-full bg-gray-50 py-20 px-6 md:px-20">
+    <div id="volunteerd" className="w-full bg-gray-50 py-20 px-6 md:px-20">
       <div className="max-w-4xl mx-auto text-center space-y-6">
         <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800">
           Volunteer / Partner Sign-Up
@@ -30,6 +37,18 @@ function VolunteerD() {
         <p className="text-gray-600 text-lg md:text-xl">
           Fill out the form below and join our community of volunteers and partners making a real difference.
         </p>
+
+        {statusMessage && (
+          <div
+            className={`p-3 rounded-lg text-sm font-semibold ${
+              statusMessage.startsWith("✅")
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {statusMessage}
+          </div>
+        )}
 
         <form
           onSubmit={handleSubmit}
@@ -62,15 +81,16 @@ function VolunteerD() {
             required
             className="p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
           />
-          <input
-            type="text"
+          <select
             name="interest"
             value={formData.interest}
             onChange={handleChange}
-            placeholder="Area of Interest"
             required
             className="p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          />
+          >
+            <option value="Volunteer">Volunteer</option>
+            <option value="Partner">Partner</option>
+          </select>
           <textarea
             name="message"
             value={formData.message}
@@ -79,7 +99,6 @@ function VolunteerD() {
             rows="4"
             className="md:col-span-2 p-4 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
           ></textarea>
-
           <button
             type="submit"
             className="md:col-span-2 bg-yellow-400 text-black font-bold py-4 px-6 rounded-lg hover:bg-yellow-500 transition text-lg"

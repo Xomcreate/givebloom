@@ -54,13 +54,17 @@ function Navbar() {
     >
       {/* Desktop Navbar */}
       <div className="hidden xl:grid grid-cols-8 items-center px-6 h-[10vh]">
+        {/* Logo */}
         <div className="col-span-2 flex items-center justify-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-3xl font-bold tracking-wide text-white">GiveBloom</h1>
+          <h1 className="text-3xl font-bold tracking-wide text-white">
+            GiveBloom
+          </h1>
         </div>
 
+        {/* Menu Links */}
         <div className="col-span-4 flex justify-center gap-8 text-white text-lg font-medium">
           {menuItems.map((item, idx) => (
             <Link
@@ -73,41 +77,35 @@ function Navbar() {
           ))}
         </div>
 
-        {/* Right: Donate / Dashboard / Logout */}
+        {/* Right: Donate only (icons hidden on desktop) */}
         <div className="col-span-2 flex justify-center gap-4">
-          {!role && (
-            <Link
-              to="/donate"
-              className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
-            >
-              Donate
-              <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">↗</div>
-            </Link>
-          )}
+          <Link
+            to="/donate"
+            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+          >
+            Donate
+            <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
+              ↗
+            </div>
+          </Link>
         </div>
       </div>
 
       {/* Mobile & iPad Navbar */}
       <div className="xl:hidden flex items-center justify-between px-4 py-3 h-[10vh]">
+        {/* Logo */}
         <div className="flex items-center gap-2">
           <div className="bg-yellow-400 w-10 h-10 flex items-center justify-center rounded-full">
             <FaHandsHelping className="text-black text-lg" />
           </div>
-          <h1 className="text-xl font-bold tracking-wide text-white">GiveBloom</h1>
+          <h1 className="text-xl font-bold tracking-wide text-white">
+            GiveBloom
+          </h1>
         </div>
 
-        {/* Login/Signup or Logout/Dashboard icons */}
+        {/* Login/Signup or Dashboard/Logout (mobile only) */}
         <div className="flex items-center gap-4">
-          {!role ? (
-            <>
-              <Link to="/login" className="p-2 text-white hover:text-yellow-400 transition">
-                <MdLogin className="text-2xl" />
-              </Link>
-              <Link to="/signup" className="p-2 text-white hover:text-yellow-400 transition">
-                <FaUser className="text-xl" />
-              </Link>
-            </>
-          ) : (
+          {role ? (
             <>
               <Link
                 to={role === "admin" ? "/donatee" : "/user"}
@@ -122,12 +120,34 @@ function Navbar() {
                 <MdLogout className="text-2xl" />
               </button>
             </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="p-2 text-white hover:text-yellow-400 transition"
+              >
+                <MdLogin className="text-2xl" />
+              </Link>
+              <Link
+                to="/signup"
+                className="p-2 text-white hover:text-yellow-400 transition"
+              >
+                <FaUser className="text-xl" />
+              </Link>
+            </>
           )}
         </div>
 
         {/* Hamburger */}
-        <button onClick={() => setIsOpen(!isOpen)} className="p-2 focus:outline-none">
-          {isOpen ? <HiX className="w-7 h-7 text-yellow-400" /> : <HiMenu className="w-7 h-7 text-yellow-400" />}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 focus:outline-none"
+        >
+          {isOpen ? (
+            <HiX className="w-7 h-7 text-yellow-400" />
+          ) : (
+            <HiMenu className="w-7 h-7 text-yellow-400" />
+          )}
         </button>
       </div>
 
@@ -146,15 +166,17 @@ function Navbar() {
             {item.name}
           </Link>
         ))}
-        {!role && (
-          <Link
-            to="/donate"
-            className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
-          >
-            Donate
-            <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">↗</div>
-          </Link>
-        )}
+
+        {/* Donate always visible */}
+        <Link
+          to="/donate"
+          className="bg-yellow-400 text-black px-6 py-2 rounded-full font-medium flex items-center gap-2 hover:bg-yellow-500 transition text-lg"
+        >
+          Donate
+          <div className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
+            ↗
+          </div>
+        </Link>
       </div>
     </nav>
   );

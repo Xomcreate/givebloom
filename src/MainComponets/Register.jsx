@@ -9,6 +9,8 @@ function Register() {
   const [showPwd2, setShowPwd2] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");      // ✅ NEW
+  const [location, setLocation] = useState(""); // ✅ NEW
   const [pwd, setPwd] = useState("");
   const [pwd2, setPwd2] = useState("");
   const [error, setError] = useState("");
@@ -27,6 +29,8 @@ function Register() {
       const res = await axios.post("http://localhost:5000/api/auth/register", {
         fullName,
         email,
+        phone,      // ✅ send phone
+        location,   // ✅ send location
         password: pwd,
       });
 
@@ -35,10 +39,11 @@ function Register() {
 
       setFullName("");
       setEmail("");
+      setPhone("");     // ✅ clear after success
+      setLocation("");  // ✅ clear after success
       setPwd("");
       setPwd2("");
 
-      // Redirect to login page after 2s
       setTimeout(() => {
         navigate("/login");
       }, 2000);
@@ -62,7 +67,7 @@ function Register() {
         animate="show"
         className="bg-white shadow-2xl rounded-2xl overflow-hidden w-full max-w-5xl flex flex-col md:flex-row"
       >
-        {/* Left: Brand Story */}
+        {/* Left */}
         <div className="bg-black text-white md:w-1/2 p-10 flex flex-col items-center justify-center text-center relative">
           <h2 className="text-3xl font-extrabold tracking-tight">GiveBloom</h2>
           <p className="text-lg mt-3">
@@ -73,7 +78,7 @@ function Register() {
           </p>
         </div>
 
-        {/* Right: Form */}
+        {/* Right */}
         <div className="md:w-1/2 p-8">
           <h3 className="text-2xl font-bold text-center">Create Account</h3>
           <p className="text-gray-600 text-center mb-6">Start making an impact with GiveBloom.</p>
@@ -103,6 +108,32 @@ function Register() {
               />
             </div>
 
+            {/* ✅ Phone */}
+            <div>
+              <label className="block text-sm mb-2">Phone Number</label>
+              <input
+                type="tel"
+                placeholder="Enter your phone number"
+                className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
+              />
+            </div>
+
+            {/* ✅ Location */}
+            <div>
+              <label className="block text-sm mb-2">Location</label>
+              <input
+                type="text"
+                placeholder="Enter your location"
+                className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+              />
+            </div>
+
             <div className="relative">
               <label className="block text-sm mb-2">Password</label>
               <input
@@ -118,7 +149,6 @@ function Register() {
                 type="button"
                 onClick={() => setShowPwd((v) => !v)}
                 className="absolute right-3 top-9 text-gray-500"
-                aria-label="Toggle password visibility"
               >
                 {showPwd ? <HiEyeOff /> : <HiEye />}
               </button>
@@ -139,7 +169,6 @@ function Register() {
                 type="button"
                 onClick={() => setShowPwd2((v) => !v)}
                 className="absolute right-3 top-9 text-gray-500"
-                aria-label="Toggle confirm password visibility"
               >
                 {showPwd2 ? <HiEyeOff /> : <HiEye />}
               </button>

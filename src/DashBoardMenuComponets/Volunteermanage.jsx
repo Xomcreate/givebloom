@@ -1,23 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserFriends, FaUserPlus, FaHandshake } from "react-icons/fa";
+import axios from "axios";
 
 function Volunteermanage() {
-  const volunteers = [
-    {
-      id: 1,
-      name: "John Doe",
-      email: "john@example.com",
-      role: "Volunteer",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Mary Smith",
-      email: "mary@example.com",
-      role: "Partner",
-      status: "Pending",
-    },
-  ];
+  const [volunteers, setVolunteers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch volunteers from backend
+  useEffect(() => {
+    const fetchVolunteers = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/volunteers");
+        setVolunteers(res.data);
+      } catch (err) {
+        console.error("Error fetching volunteers:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVolunteers();
+  }, []);
+
+  // Approve volunteer
+  const handleApprove = async (id) => {
+    try {
+      const res = await axios.put(`http://localhost:5000/api/volunteers/${id}/approve`);
+      setVolunteers((prev) =>
+        prev.map((v) => (v._id === id ? res.data : v))
+      );
+    } catch (err) {
+      console.error("Error approving volunteer:", err);
+    }
+  };
+
+  // Delete volunteer
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/volunteers/${id}`);
+      setVolunteers((prev) => prev.filter((v) => v._id !== id));
+    } catch (err) {
+      console.error("Error deleting volunteer:", err);
+    }
+  };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
@@ -37,21 +61,25 @@ function Volunteermanage() {
           <FaUserFriends className="text-yellow-400 text-3xl mr-4" />
           <div>
             <h3 className="text-lg font-semibold">Total Volunteers</h3>
-            <p className="text-gray-300">120 Active</p>
+            <p className="text-gray-300">{volunteers.length} Registered</p>
           </div>
         </div>
         <div className="bg-[#1a1a1a] text-white shadow-md rounded-xl p-6 flex items-center">
           <FaUserPlus className="text-green-400 text-3xl mr-4" />
           <div>
             <h3 className="text-lg font-semibold">New Applicants</h3>
-            <p className="text-gray-300">15 Pending</p>
+            <p className="text-gray-300">
+              {volunteers.filter((v) => !v.status || v.status === "Pending").length} Pending
+            </p>
           </div>
         </div>
         <div className="bg-[#1a1a1a] text-white shadow-md rounded-xl p-6 flex items-center">
           <FaHandshake className="text-blue-400 text-3xl mr-4" />
           <div>
             <h3 className="text-lg font-semibold">Partners</h3>
-            <p className="text-gray-300">8 Organizations</p>
+            <p className="text-gray-300">
+              {volunteers.filter((v) => v.interest === "Partner").length} Organizations
+            </p>
           </div>
         </div>
       </div>
@@ -61,91 +89,110 @@ function Volunteermanage() {
         <h3 className="text-xl font-semibold mb-4 text-yellow-400">
           Volunteer List
         </h3>
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-[#2a2a2a] text-yellow-400">
-              <th className="py-2 px-4">Name</th>
-              <th className="py-2 px-4">Email</th>
-              <th className="py-2 px-4">Role</th>
-              <th className="py-2 px-4">Status</th>
-              <th className="py-2 px-4 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {volunteers.map((v) => (
-              <tr
-                key={v.id}
-                className="border-t border-gray-700 hover:bg-gray-800 transition"
-              >
-                <td className="py-2 px-4">{v.name}</td>
-                <td className="py-2 px-4">{v.email}</td>
-                <td className="py-2 px-4">{v.role}</td>
-                <td className="py-2 px-4">
-                  <span
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      v.status === "Active"
-                        ? "bg-green-900 text-green-400"
-                        : "bg-yellow-900 text-yellow-400"
-                    }`}
-                  >
-                    {v.status}
-                  </span>
-                </td>
-                <td className="py-2 px-4 text-center flex gap-3 justify-center">
-                  <button className="text-yellow-400 hover:text-yellow-300 transition">
-                    View
-                  </button>
-                  {v.status === "Pending" && (
-                    <button className="text-green-400 hover:text-green-300 transition">
-                      Approve
-                    </button>
-                  )}
-                  <button className="text-red-400 hover:text-red-300 transition">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
 
-        {/* Mobile Cards */}
-        <div className="space-y-4 md:hidden mt-6">
-          {volunteers.map((v) => (
-            <div
-              key={v.id}
-              className="bg-[#2a2a2a] p-4 rounded-lg shadow-md"
-            >
-              <p className="font-semibold text-yellow-400">{v.name}</p>
-              <p className="text-sm text-gray-300">{v.email}</p>
-              <p className="text-gray-400 mt-1">{v.role}</p>
-              <div className="flex justify-between items-center mt-3 text-sm">
-                <span
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    v.status === "Active"
-                      ? "bg-green-900 text-green-400"
-                      : "bg-yellow-900 text-yellow-400"
-                  }`}
+        {loading ? (
+          <p className="text-gray-400">Loading volunteers...</p>
+        ) : volunteers.length === 0 ? (
+          <p className="text-gray-400">No volunteers found.</p>
+        ) : (
+          <>
+            {/* Desktop Table */}
+            <table className="w-full text-left border-collapse hidden md:table">
+              <thead>
+                <tr className="bg-[#2a2a2a] text-yellow-400">
+                  <th className="py-2 px-4">Name</th>
+                  <th className="py-2 px-4">Email</th>
+                  <th className="py-2 px-4">Phone</th>
+                  <th className="py-2 px-4">Interest</th>
+                  <th className="py-2 px-4">Status</th>
+                  <th className="py-2 px-4 text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {volunteers.map((v) => (
+                  <tr
+                    key={v._id}
+                    className="border-t border-gray-700 hover:bg-gray-800 transition"
+                  >
+                    <td className="py-2 px-4">{v.name}</td>
+                    <td className="py-2 px-4">{v.email}</td>
+                    <td className="py-2 px-4">{v.phone}</td>
+                    <td className="py-2 px-4">{v.interest}</td>
+                    <td className="py-2 px-4">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          v.status === "Active"
+                            ? "bg-green-900 text-green-400"
+                            : "bg-yellow-900 text-yellow-400"
+                        }`}
+                      >
+                        {v.status || "Pending"}
+                      </span>
+                    </td>
+                    <td className="py-2 px-4 text-center flex gap-3 justify-center">
+                      {(!v.status || v.status === "Pending") && (
+                        <button
+                          onClick={() => handleApprove(v._id)}
+                          className="text-green-400 hover:text-green-300 transition"
+                        >
+                          Approve
+                        </button>
+                      )}
+                      <button
+                        onClick={() => handleDelete(v._id)}
+                        className="text-red-400 hover:text-red-300 transition"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Mobile Cards */}
+            <div className="space-y-4 md:hidden mt-6">
+              {volunteers.map((v) => (
+                <div
+                  key={v._id}
+                  className="bg-[#2a2a2a] p-4 rounded-lg shadow-md"
                 >
-                  {v.status}
-                </span>
-              </div>
-              <div className="flex gap-4 mt-3">
-                <button className="text-yellow-400 hover:text-yellow-300 transition">
-                  View
-                </button>
-                {v.status === "Pending" && (
-                  <button className="text-green-400 hover:text-green-300 transition">
-                    Approve
-                  </button>
-                )}
-                <button className="text-red-400 hover:text-red-300 transition">
-                  Delete
-                </button>
-              </div>
+                  <p className="font-semibold text-yellow-400">{v.name}</p>
+                  <p className="text-sm text-gray-300">{v.email}</p>
+                  <p className="text-sm text-gray-300">{v.phone}</p>
+                  <p className="text-gray-400 mt-1">{v.interest}</p>
+                  <div className="flex justify-between items-center mt-3 text-sm">
+                    <span
+                      className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        v.status === "Active"
+                          ? "bg-green-900 text-green-400"
+                          : "bg-yellow-900 text-yellow-400"
+                      }`}
+                    >
+                      {v.status || "Pending"}
+                    </span>
+                  </div>
+                  <div className="flex gap-4 mt-3">
+                    {(!v.status || v.status === "Pending") && (
+                      <button
+                        onClick={() => handleApprove(v._id)}
+                        className="text-green-400 hover:text-green-300 transition"
+                      >
+                        Approve
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleDelete(v._id)}
+                      className="text-red-400 hover:text-red-300 transition"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
       </div>
     </div>
   );
