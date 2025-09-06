@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaUsers, FaUserCheck, FaUserClock, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk.onrender.com/api";
-
 function UserManage() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/auth/users`);
+      const res = await axios.get("https://g-bloombk.onrender.com/api/auth/users");
       setUsers(res.data.users);
     } catch (err) {
       console.error("Error fetching users:", err.message);
@@ -26,7 +24,7 @@ function UserManage() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      await axios.delete(`${API_BASE}/auth/users/${id}`);
+      await axios.delete(`http://localhost:5000/api/auth/users/${id}`);
       fetchUsers();
     } catch (err) {
       console.error("Delete error:", err.message);

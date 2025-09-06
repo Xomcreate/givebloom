@@ -20,7 +20,8 @@ function VolunteerD() {
     e.preventDefault();
     setStatusMessage("");
     try {
-      await axios.post("http://localhost:5000/api/volunteers", formData);
+      // ✅ Updated URL to Render deployment
+      await axios.post("https://g-bloombk.onrender.com/api/volunteers", formData);
       setStatusMessage("✅ Thank you for signing up! We will contact you soon.");
       setFormData({ name: "", email: "", phone: "", interest: "Volunteer", message: "" });
     } catch (err) {

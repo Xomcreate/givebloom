@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaCheck, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk.onrender.com/api";
-
 function ReviewManage() {
   const [reviews, setReviews] = useState([]);
 
+  // Fetch all reviews
   const fetchReviews = async () => {
     try {
-      const res = await axios.get(`${API_BASE}/reviews`);
+      const res = await axios.get("https://g-bloombk.onrender.com/api/reviews");
       setReviews(res.data);
     } catch (err) {
       console.log(err);
@@ -20,18 +19,20 @@ function ReviewManage() {
     fetchReviews();
   }, []);
 
+  // Approve a review
   const handleApprove = async (id) => {
     try {
-      await axios.patch(`${API_BASE}/reviews/${id}/approve`);
+      await axios.patch(`https://g-bloombk.onrender.com/api/reviews/${id}/approve`);
       fetchReviews();
     } catch (err) {
       console.log(err);
     }
   };
 
+  // Delete a review
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${API_BASE}/reviews/${id}`);
+      await axios.delete(`https://g-bloombk.onrender.com/api/reviews/${id}`);
       fetchReviews();
     } catch (err) {
       console.log(err);
@@ -52,6 +53,7 @@ function ReviewManage() {
                   {new Date(review.createdAt).toLocaleDateString()}
                 </span>
               </div>
+
               <div className="flex mb-2">
                 {[...Array(5)].map((_, i) => (
                   <FaStar
@@ -60,7 +62,9 @@ function ReviewManage() {
                   />
                 ))}
               </div>
+
               <p className="text-gray-300 mb-2">{review.comment}</p>
+
               <div className="flex gap-2">
                 {!review.approved && (
                   <button
@@ -77,6 +81,7 @@ function ReviewManage() {
                   <FaTrash /> Delete
                 </button>
               </div>
+
               {review.approved && (
                 <span className="text-green-400 text-sm mt-1 block">Approved</span>
               )}
