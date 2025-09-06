@@ -8,7 +8,7 @@ function VerifyCode({ email, setStep }) {
   const handleVerify = async () => {
     setMessage(""); setError("");
     try {
-      const res = await fetch("http://localhost:5000/api/auth/verify-code", {
+      const res = await fetch("https://g-bloombk.onrender.com/api/auth/verify-code", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, code }),

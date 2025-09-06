@@ -12,7 +12,7 @@ function ForgetPassword({ setStep, setEmailProp }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/forgot-password", {
+      const res = await fetch("https://g-bloombk.onrender.com/api/auth/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -50,7 +50,9 @@ function ForgetPassword({ setStep, setEmailProp }) {
             className="w-full px-4 py-3 rounded-xl focus:outline-none border border-black"
             required
           />
-          <button className="w-full py-3 bg-yellow-400 text-black rounded-xl font-bold">Send Code</button>
+          <button className="w-full py-3 bg-yellow-400 text-black rounded-xl font-bold">
+            Send Code
+          </button>
         </form>
       </motion.div>
     </div>
