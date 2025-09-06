@@ -5,6 +5,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
+const API_BASE = "https://g-bloombk.onrender.com/api"; // ✅ base URL
+
 function DonationOverview() {
   const [stats, setStats] = useState({
     totalDonations: 0,
@@ -18,7 +20,7 @@ function DonationOverview() {
 
   const fetchDonations = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/donations");
+      const res = await axios.get(`${API_BASE}/donations`);
       const donationData = res.data;
 
       const totalDonations = donationData.reduce((sum, d) => sum + Number(d.amount), 0);
@@ -73,7 +75,7 @@ function DonationOverview() {
   const handleDelete = async id => {
     if (!window.confirm("Are you sure you want to delete this donation?")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/donations/${id}`);
+      await axios.delete(`${API_BASE}/donations/${id}`);
       fetchDonations();
     } catch (err) {
       console.error(err);
@@ -81,11 +83,10 @@ function DonationOverview() {
     }
   };
 
-  // --------- Approve a Pending Donation ---------
   const handleApprove = async id => {
     if (!window.confirm("Approve this donation?")) return;
     try {
-      await axios.put(`http://localhost:5000/api/donations/approve/${id}`);
+      await axios.put(`${API_BASE}/donations/approve/${id}`);
       fetchDonations();
     } catch (err) {
       console.error(err);

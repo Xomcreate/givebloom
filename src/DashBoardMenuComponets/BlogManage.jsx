@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_BASE = "http://localhost:5000";
+const API_BASE = "https://g-bloombk.onrender.com"; // ✅ Updated live URL
 
 function BlogManage() {
   const [blogs, setBlogs] = useState([]);
@@ -95,12 +95,10 @@ function BlogManage() {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
-      {/* Header */}
       <h2 className="text-2xl font-semibold text-[#1a1a1a] mb-6 text-center">
         Manage Blogs
       </h2>
 
-      {/* Upload Form */}
       <form
         onSubmit={handleSubmit}
         className="bg-white p-4 rounded-lg shadow-md mb-6 max-w-3xl mx-auto"
@@ -161,15 +159,10 @@ function BlogManage() {
           disabled={loading}
           className="px-4 py-2 bg-[#1a1a1a] text-yellow-400 rounded-lg hover:bg-yellow-500 hover:text-[#1a1a1a] transition w-full"
         >
-          {loading
-            ? "Saving..."
-            : editingId
-            ? "Update Blog"
-            : "+ Add New Blog"}
+          {loading ? "Saving..." : editingId ? "Update Blog" : "+ Add New Blog"}
         </button>
       </form>
 
-      {/* Blog Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {blogs.map((blog) => (
           <div
@@ -184,12 +177,8 @@ function BlogManage() {
               />
             )}
             <div className="p-4">
-              <h3 className="text-md font-medium text-[#1a1a1a]">
-                {blog.title}
-              </h3>
-              <p className="text-sm text-gray-600 line-clamp-2">
-                {blog.desc}
-              </p>
+              <h3 className="text-md font-medium text-[#1a1a1a]">{blog.title}</h3>
+              <p className="text-sm text-gray-600 line-clamp-2">{blog.desc}</p>
               <p className="text-xs text-gray-500 mt-1">
                 {blog.category} | {blog.author} | {blog.status}
               </p>

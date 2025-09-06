@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE = "https://g-bloombk.onrender.com"; // ✅ Updated live URL
+
 function BlogB() {
   const [blogs, setBlogs] = useState([]);
 
@@ -10,7 +12,7 @@ function BlogB() {
 
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/blogs/public");
+      const res = await axios.get(`${API_BASE}/api/blogs/public`);
       setBlogs(res.data);
     } catch (err) {
       console.error("Error fetching blogs", err);
@@ -28,7 +30,7 @@ function BlogB() {
           >
             {blog.image && (
               <img
-                src={`http://localhost:5000${blog.image}`}
+                src={`${API_BASE}${blog.image}`}
                 alt={blog.title}
                 className="w-full h-60 object-cover"
               />
