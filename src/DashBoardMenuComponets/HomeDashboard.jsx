@@ -11,11 +11,8 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-// API base
-const API_BASE =
-  (typeof process !== "undefined" && process.env && process.env.REACT_APP_API_BASE) ||
-  (typeof window !== "undefined" && window.REACT_APP_API_BASE) ||
-  "http://localhost:5000";
+// ✅ Live backend URL
+const API_BASE = "https://g-bloombk.onrender.com";
 
 function HomeDashboard() {
   const [contacts, setContacts] = useState([]);

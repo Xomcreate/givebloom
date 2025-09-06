@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaPhoneAlt, FaCheckCircle, FaTrash } from "react-icons/fa";
 
-const API_BASE = "http://localhost:5000"; // your backend URL
+const API_BASE = "https://g-bloombk.onrender.com"; // ✅ Updated live URL
 
 function ContactManage() {
   const [contacts, setContacts] = useState([]);
@@ -15,7 +15,6 @@ function ContactManage() {
     fetchContacts();
   }, []);
 
-  // Fetch all contacts
   const fetchContacts = async () => {
     try {
       setError(null);
@@ -32,7 +31,6 @@ function ContactManage() {
     }
   };
 
-  // Delete single contact
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this message?")) return;
     try {
@@ -49,7 +47,6 @@ function ContactManage() {
     }
   };
 
-  // Delete all contacts
   const handleDeleteAll = async () => {
     if (!contacts.length) return;
     if (!window.confirm(`Delete ALL (${contacts.length}) messages? This cannot be undone.`)) return;
@@ -67,16 +64,13 @@ function ContactManage() {
     }
   };
 
-  // Mark as read
   const handleMarkAsRead = async (id) => {
     try {
       setMarkingId(id);
       const res = await fetch(`${API_BASE}/api/contact/${id}/read`, { method: "PATCH" });
       const data = await res.json();
       if (!res.ok || !data) throw new Error("Mark as read failed");
-      setContacts((prev) =>
-        prev.map((c) => (c._id === id ? { ...c, read: true } : c))
-      );
+      setContacts((prev) => prev.map((c) => (c._id === id ? { ...c, read: true } : c)));
     } catch (err) {
       console.error("Mark as read error:", err);
       alert("Failed to mark as read.");
@@ -87,6 +81,7 @@ function ContactManage() {
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
+      {/* Header and Delete All Button */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3">
         <h1 className="text-2xl font-bold text-yellow-400 bg-[#1a1a1a] px-4 py-2 rounded-lg shadow">
           Contact Management
@@ -116,9 +111,7 @@ function ContactManage() {
           <FaPhoneAlt className="text-green-400 text-3xl" />
           <div>
             <h3 className="text-lg font-semibold">New Messages</h3>
-            <p className="text-gray-300">
-              {contacts.filter((c) => !c.read).length} Unread
-            </p>
+            <p className="text-gray-300">{contacts.filter((c) => !c.read).length} Unread</p>
           </div>
         </div>
         <div className="bg-[#1a1a1a] text-white shadow-md rounded-xl p-6 flex items-center gap-4">
@@ -130,7 +123,7 @@ function ContactManage() {
         </div>
       </div>
 
-      {/* Contacts */}
+      {/* Contact Messages */}
       <div className="bg-[#1a1a1a] text-white shadow-md rounded-xl p-6">
         <h3 className="text-xl font-semibold mb-4 text-yellow-400">Contact Submissions</h3>
 

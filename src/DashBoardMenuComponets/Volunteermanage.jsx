@@ -10,7 +10,7 @@ function Volunteermanage() {
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/volunteers");
+        const res = await axios.get("https://g-bloombk.onrender.com/api/volunteers");
         setVolunteers(res.data);
       } catch (err) {
         console.error("Error fetching volunteers:", err);
@@ -24,7 +24,7 @@ function Volunteermanage() {
   // Approve volunteer
   const handleApprove = async (id) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/volunteers/${id}/approve`);
+      const res = await axios.put(`https://g-bloombk.onrender.com/api/volunteers/${id}/approve`);
       setVolunteers((prev) =>
         prev.map((v) => (v._id === id ? res.data : v))
       );
@@ -36,7 +36,7 @@ function Volunteermanage() {
   // Delete volunteer
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/volunteers/${id}`);
+      await axios.delete(`https://g-bloombk.onrender.com/api/volunteers/${id}`);
       setVolunteers((prev) => prev.filter((v) => v._id !== id));
     } catch (err) {
       console.error("Error deleting volunteer:", err);
