@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BlogE from "./BlogE";
 
-const API_BASE = "http://localhost:5000/api";
+// Use your Render URL
+const API_BASE = "https://g-bloombk.onrender.com/api";
 
 function BlogD() {
   const [comments, setComments] = useState([]);
@@ -38,7 +39,7 @@ function BlogD() {
       setNewRating(0);
 
       setSuccessMessage("Review submitted successfully!");
-      setTimeout(() => setSuccessMessage(""), 3000); // clear message after 3s
+      setTimeout(() => setSuccessMessage(""), 3000); // clear after 3s
     } catch (err) {
       console.log(err);
     }

@@ -15,7 +15,7 @@ function BlogC() {
     setMessage(null);
 
     try {
-      await axios.post("http://localhost:5000/api/subscribe", { email });
+      await axios.post("https://g-bloombk.onrender.com/api/subscribe", { email });
       // Simplified success message
       setMessage({ type: "success", text: "Subscribed successfully" });
       setEmail("");
