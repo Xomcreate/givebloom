@@ -9,10 +9,13 @@ function ContactB() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
-  // Form state
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,12 +28,12 @@ function ContactB() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Handle input changes
+  // Input change handler
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
+  // Form submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,8 +41,9 @@ function ContactB() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/contact", {
+      const res = await fetch("https://g-bloombk.onrender.com/api/contact", {
         method: "POST",
+        mode: 'cors',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
@@ -47,7 +51,7 @@ function ContactB() {
       const result = await res.json();
 
       if (res.ok) {
-        setSuccessMessage("Message sent successfully! We'll notify you soon.");
+        setSuccessMessage(result.message || "Message sent successfully!");
         setFormData({
           firstName: "",
           lastName: "",
@@ -59,11 +63,11 @@ function ContactB() {
         setErrorMessage(result.message || "Failed to send message.");
       }
     } catch (err) {
-      console.error("Fetch error:", err);
-      setErrorMessage("Server error. Try again later.");
+      console.error("Frontend fetch error:", err);
+      setErrorMessage("Unable to reach server. Please try again later.");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -80,7 +84,6 @@ function ContactB() {
           className="w-full md:flex-1 flex flex-col gap-6 items-center md:items-start text-center md:text-left"
           variants={itemVariants}
         >
-          {/* Heading */}
           <div className="w-full md:w-auto">
             <h2 className="text-3xl md:text-4xl font-extrabold text-black mb-2 leading-tight">
               Let's Connect! 💬
@@ -89,11 +92,11 @@ function ContactB() {
               We’d love to hear from you.
             </p>
             <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-              Got a question, feedback, or idea? Fill out the form below, and our team will get back to you quickly. Your voice matters to us!
+              Got a question, feedback, or idea? Fill out the form below, and
+              our team will get back to you quickly.
             </p>
           </div>
 
-          {/* Form */}
           <div className="bg-white shadow-xl p-8 rounded-xl w-full max-w-lg flex-1">
             <form
               className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full"
@@ -105,7 +108,7 @@ function ContactB() {
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="First Name*"
-                className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-yellow-400"
                 required
                 disabled={loading}
               />
@@ -115,7 +118,7 @@ function ContactB() {
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Last Name*"
-                className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-yellow-400"
                 required
                 disabled={loading}
               />
@@ -125,7 +128,7 @@ function ContactB() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Email Address*"
-                className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-yellow-400"
                 required
                 disabled={loading}
               />
@@ -135,7 +138,7 @@ function ContactB() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Phone Number*"
-                className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-yellow-400"
                 required
                 disabled={loading}
               />
@@ -146,7 +149,7 @@ function ContactB() {
                 onChange={handleChange}
                 placeholder="Your Message*"
                 rows={4}
-                className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"
+                className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-yellow-400"
                 required
                 disabled={loading}
               ></textarea>
@@ -154,12 +157,11 @@ function ContactB() {
               <button
                 type="submit"
                 disabled={loading}
-                className="col-span-1 md:col-span-2 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 hover:scale-105 transition transform"
+                className="col-span-1 md:col-span-2 bg-yellow-400 text-black font-semibold px-6 py-3 rounded-lg hover:bg-yellow-500 transition"
               >
                 {loading ? "Sending..." : "Send Message"}
               </button>
 
-              {/* Success & Error Messages */}
               {successMessage && (
                 <p className="col-span-1 md:col-span-2 text-green-600 font-semibold mt-2">
                   {successMessage}

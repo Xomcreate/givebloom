@@ -19,7 +19,7 @@ function ContactC() {
       title: "Mail Information",
       subtitle: "Drop Line",
       details: [
-        "Priscaojimba15@gmail.com",
+        "givebloom15@gmail.com",
         "Send us your questions or feedback and we'll respond quickly."
       ],
       bg: "bg-black text-white",
@@ -29,8 +29,8 @@ function ContactC() {
       title: "Our Location",
       subtitle: "Address",
       details: [
-        "50 Abeje Street, Off Itiri Bus Stop",
-        "Apapa, Lagos State, Nigeria",
+        "36 obayoka Street, Off Iba Bustop",
+        "Ojo, Lagos State, Nigeria",
         "Visit us during office hours for assistance or inquiries."
       ],
       bg: "bg-yellow-400 text-black",
