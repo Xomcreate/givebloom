@@ -19,7 +19,7 @@ function UserDonate() {
           return;
         }
 
-        const res = await axios.get(`http://localhost:5000/api/donations/user/${userEmail}`);
+        const res = await axios.get(`https://g-bloombk.onrender.com/api/donations/user/${userEmail}`);
         const userDonations = res.data;
 
         const totalDonated = userDonations.reduce((sum, d) => sum + Number(d.amount), 0);

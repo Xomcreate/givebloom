@@ -17,7 +17,7 @@ export default function UserProfile() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get("https://g-bloombk.onrender.com/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const u = res.data.user;
@@ -54,7 +54,7 @@ export default function UserProfile() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/auth/users/${user.id}`,
+        `https://g-bloombk.onrender.com/api/auth/users/${user.id}`,
         {
           fullName: user.name,
           email: user.email,
