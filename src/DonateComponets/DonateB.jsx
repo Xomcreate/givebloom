@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+const API_BASE = "https://g-bloombk.onrender.com/api/donations"; // ✅ Render backend
+
 function DonateB() {
   const [amount, setAmount] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -37,10 +39,9 @@ function DonateB() {
 
   const verifyPaystackDonation = async (reference) => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/donations/paystack/verify/${reference}`);
+      const res = await axios.get(`${API_BASE}/paystack/verify/${reference}`);
       setMessage("Donation successful! Thank you 💛");
       setError("");
-      // Clean URL
       window.history.replaceState({}, document.title, window.location.pathname);
     } catch (err) {
       console.error(err);
@@ -63,15 +64,15 @@ function DonateB() {
     // -----------------------------
     if (paymentMethod === "card") {
       try {
-        const res = await axios.post("http://localhost:5000/api/donations/paystack", {
+        const res = await axios.post(`${API_BASE}/paystack`, {
           name,
           email,
           amount,
           cause,
-          callback_url: window.location.href, // redirect back to this page
+          callback_url: window.location.href, // redirect back here
         });
 
-        // Redirect to Paystack payment page
+        // Redirect user to Paystack payment page
         window.location.href = res.data.authorization_url;
       } catch (err) {
         console.error(err);
@@ -99,10 +100,10 @@ function DonateB() {
           paymentMethod === "mobile"
             ? { provider: mobileProvider, number: mobileNumber }
             : undefined,
-        status: "Pending", // mark as pending until verified
+        status: "Pending",
       };
 
-      const res = await axios.post("http://localhost:5000/api/donations", data);
+      await axios.post(`${API_BASE}`, data);
 
       setMessage("Donation submitted! Awaiting confirmation 💛");
 
