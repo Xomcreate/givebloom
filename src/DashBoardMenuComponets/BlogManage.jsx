@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk.onrender.com"; // ✅ Updated live URL
+const API_BASE = "https://g-bloombk.onrender.com"; // ✅ Your backend URL
 
 function BlogManage() {
   const [blogs, setBlogs] = useState([]);
@@ -171,13 +171,15 @@ function BlogManage() {
           >
             {blog.image && (
               <img
-                src={`${API_BASE}${blog.image}`}
+                src={blog.image} // ✅ FIXED: use Cloudinary URL directly
                 alt={blog.title}
                 className="w-full h-40 object-cover"
               />
             )}
             <div className="p-4">
-              <h3 className="text-md font-medium text-[#1a1a1a]">{blog.title}</h3>
+              <h3 className="text-md font-medium text-[#1a1a1a]">
+                {blog.title}
+              </h3>
               <p className="text-sm text-gray-600 line-clamp-2">{blog.desc}</p>
               <p className="text-xs text-gray-500 mt-1">
                 {blog.category} | {blog.author} | {blog.status}
