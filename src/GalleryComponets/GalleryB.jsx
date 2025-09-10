@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 
+const API_BASE = "https://g-bloombk.onrender.com/api";
+
 function GalleryB() {
   const [galleryImages, setGalleryImages] = useState([]);
 
@@ -9,7 +11,7 @@ function GalleryB() {
   useEffect(() => {
     const fetchPublicGallery = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/gallery/public");
+        const res = await axios.get(`${API_BASE}/gallery/public`);
         setGalleryImages(res.data);
       } catch (error) {
         console.error("Error fetching public gallery:", error);
@@ -45,9 +47,9 @@ function GalleryB() {
             animate="visible"
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            {/* Bigger Image */}
+            {/* Image */}
             <img
-              src={`http://localhost:5000${item.image}`}
+              src={item.image} // ✅ Direct Cloudinary URL
               alt={item.title}
               className="w-full h-72 object-cover"
             />
