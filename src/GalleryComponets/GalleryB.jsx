@@ -9,7 +9,7 @@ function GalleryB() {
   useEffect(() => {
     const fetchPublicGallery = async () => {
       try {
-        const res = await axios.get("https://g-bloombk.onrender.com/api/gallery/public");
+        const res = await axios.get("https://g-bloombk.onrender.com/api/gallery");
         setGalleryImages(res.data);
       } catch (error) {
         console.error("Error fetching public gallery:", error);
@@ -45,9 +45,9 @@ function GalleryB() {
             animate="visible"
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            {/* Bigger Image */}
+            {/* Cloudinary Image */}
             <img
-              src={`https://g-bloombk.onrender.com/api${item.image}`}
+              src={item.imageUrl} // ✅ direct Cloudinary link from backend
               alt={item.title}
               className="w-full h-72 object-cover"
             />
@@ -57,8 +57,8 @@ function GalleryB() {
               <h3 className="text-lg font-semibold text-gray-900">
                 {item.title}
               </h3>
-              {item.caption && (
-                <p className="text-sm text-gray-600 mt-1">{item.caption}</p>
+              {item.description && (
+                <p className="text-sm text-gray-600 mt-1">{item.description}</p>
               )}
             </div>
           </motion.div>
