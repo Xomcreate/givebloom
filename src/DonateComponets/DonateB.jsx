@@ -234,9 +234,9 @@ function DonateB() {
         {paymentMethod === "bank" && (
           <div className="space-y-3 text-gray-700">
             <p className="font-medium">Transfer to:</p>
-            <p>Account Name: <span className="font-semibold">Charity Foundation</span></p>
-            <p>Bank: Example Bank</p>
-            <p>Account Number: 1234567890</p>
+            <p>Account Name: <span className="font-semibold">GiveBloom (Ojimba Prisca)</span></p>
+            <p>Bank: United Bank Of Africa (UBA)</p>
+            <p>Account Number: 2307150859</p>
           </div>
         )}
 
