@@ -16,13 +16,12 @@ function BlogC() {
 
     try {
       await axios.post("https://g-bloombk.onrender.com/api/subscribe", { email });
-      // Simplified success message
-      setMessage({ type: "success", text: "Subscribed successfully" });
+      setMessage({ type: "success", text: "Alerts activated. You will receive immediate field updates." });
       setEmail("");
     } catch (err) {
       setMessage({
         type: "error",
-        text: err.response?.data?.message || "Something went wrong!",
+        text: err.response?.data?.message || "Something went wrong! Please try again.",
       });
     } finally {
       setLoading(false);
@@ -43,11 +42,10 @@ function BlogC() {
       >
         <FaEnvelopeOpenText className="text-yellow-400 text-5xl mx-auto mb-4" />
         <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">
-          Subscribe to Our Newsletter
+          Get Live Field Dispatches & Crisis Alerts
         </h2>
-        <p className="mt-4 text-gray-300 text-lg leading-relaxed">
-          Join the <span className="text-yellow-400 font-semibold">GiveBloom-</span>
-          community to get the latest updates, inspiring stories, and ways you can make an impact.  
+        <p className="mt-4 text-gray-300 text-base sm:text-lg leading-relaxed">
+          Stay directly connected to the ground operations. Subscribe to receive immediate deployment alerts, emergency situation reports, and transparent impact summaries regarding the earthquake relief efforts in Venezuela.
         </p>
       </motion.div>
 
@@ -61,7 +59,7 @@ function BlogC() {
       >
         <input
           type="email"
-          placeholder="Enter your email"
+          placeholder="Enter your emergency email contact"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -70,11 +68,11 @@ function BlogC() {
         <button
           type="submit"
           disabled={loading}
-          className={`px-6 py-3 rounded-lg bg-yellow-400 text-[#1a1a1a] font-semibold hover:bg-yellow-300 transition ${
+          className={`px-6 py-3 rounded-lg bg-yellow-400 text-[#1a1a1a] font-semibold hover:bg-yellow-300 transition whitespace-nowrap ${
             loading ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >
-          {loading ? "Submitting..." : "Subscribe"}
+          {loading ? "Activating Alerts..." : "Activate Alerts"}
         </button>
       </motion.form>
 
@@ -83,7 +81,7 @@ function BlogC() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={`text-center mt-4 text-sm ${
+          className={`text-center mt-4 text-sm font-medium ${
             message.type === "success" ? "text-green-400" : "text-red-400"
           }`}
         >
@@ -98,7 +96,7 @@ function BlogC() {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="text-sm text-gray-400 text-center mt-4"
       >
-        We respect your privacy. Unsubscribe anytime.
+        Your context remains confidential. Opt-out of operational dispatches at any time.
       </motion.p>
     </div>
   );

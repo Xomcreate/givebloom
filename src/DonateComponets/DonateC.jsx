@@ -4,22 +4,22 @@ import { motion } from "framer-motion";
 function DonateC() {
   const plans = [
     {
-      title: "Monthly Giving",
-      price: "₦20,000 / month",
+      title: "Immediate Relief",
+      price: "$25 / month",
       description:
-        "Support us every month to sustain food, health, and education programs.",
+        "Provides monthly emergency food parcels, clean drinking water, and hygiene kits to displaced families.",
     },
     {
-      title: "Quarterly Giving",
-      price: "₦50,000 / quarter",
+      title: "Medical & Rescue Support",
+      price: "$75 / quarter",
       description:
-        "Make an impact every 3 months by funding sustainable community projects.",
+        "Funds mobile medical clinics, trauma supplies, and search-and-rescue teams working in affected zones.",
     },
     {
-      title: "Yearly Giving",
-      price: "₦200,000 / year",
+      title: "Rebuild & Recover",
+      price: "$300 / year",
       description:
-        "One-time yearly support that helps us plan bigger projects and long-term solutions.",
+        "Sustains long-term recovery by financing structural damage assessments and rebuilding collapsed community infrastructure.",
     },
   ];
 
@@ -39,7 +39,7 @@ function DonateC() {
           transition={{ duration: 0.7 }}
           className="text-2xl md:text-3xl font-extrabold text-gray-900"
         >
-          Recurring Donation Plans
+          Venezuela Earthquake Emergency Response
         </motion.h2>
         <motion.p
           initial={{ opacity: 0 }}
@@ -47,7 +47,7 @@ function DonateC() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-gray-700 max-w-2xl mx-auto"
         >
-          Choose a donation plan that works for you and create lasting change.
+          Thousands have been displaced and infrastructure has collapsed. Choose a recurring support plan to provide immediate relief and long-term recovery.
         </motion.p>
 
         {/* Plans Grid */}

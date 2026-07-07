@@ -8,13 +8,13 @@ function HomeE() {
     {
       icon: <FaHandsHelping className="text-5xl text-yellow-400" />,
       title: "Become a Volunteer",
-      desc: "Join our team of passionate volunteers bringing hope and relief to communities. Your time can change lives.",
+      desc: "Join our team of passionate volunteers bringing relief and hope to families affected by the earthquake in Venezuela. Your time can change lives.",
       link: "/volunteer", // ✅ Added link
     },
     {
       icon: <FaUsers className="text-5xl text-yellow-400" />,
       title: "Partner With Us",
-      desc: "Collaborate with us as a business, NGO, or institution. Together, we can multiply our impact and reach more people.",
+      desc: "Collaborate with us as a business, NGO, or institution. Together, we can deliver aid faster and reach more earthquake-affected communities in Venezuela.",
       link: "/volunteer", // ✅ Optional different link (can keep /volunteer if you want same)
     },
   ];
@@ -43,9 +43,9 @@ function HomeE() {
             Join the Mission
           </h2>
           <p className="text-lg text-gray-700">
-            Whether you want to give your time, skills, or resources, there’s a
-            place for you in our mission. Together, we can create lasting change
-            in our communities.
+            Whether you want to give your time, skills, or resources, there's a
+            place for you in our mission. Together, we can bring relief and
+            rebuild hope for families affected by the earthquake in Venezuela.
           </p>
         </motion.div>
 

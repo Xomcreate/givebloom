@@ -9,8 +9,8 @@ function Register() {
   const [showPwd2, setShowPwd2] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");      // ✅ NEW
-  const [location, setLocation] = useState(""); // ✅ NEW
+  const [phone, setPhone] = useState("");      // ✅ KEEP
+  const [location, setLocation] = useState(""); // ✅ KEEP
   const [pwd, setPwd] = useState("");
   const [pwd2, setPwd2] = useState("");
   const [error, setError] = useState("");
@@ -69,19 +69,19 @@ function Register() {
       >
         {/* Left */}
         <div className="bg-black text-white md:w-1/2 p-10 flex flex-col items-center justify-center text-center relative">
-          <h2 className="text-3xl font-extrabold tracking-tight">GiveBloom</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight">Crisis Relief</h2>
           <p className="text-lg mt-3">
             Join us to <span className="text-yellow-400">make an impact</span>.
           </p>
           <p className="text-gray-300 mt-3 max-w-md">
-            Be part of a community bringing hope, joy, and real change through giving.
+            Be part of a global community bringing medical aid, shelter, and vital supplies to families affected by the Venezuela earthquake.
           </p>
         </div>
 
         {/* Right */}
         <div className="md:w-1/2 p-8">
           <h3 className="text-2xl font-bold text-center">Create Account</h3>
-          <p className="text-gray-600 text-center mb-6">Start making an impact with GiveBloom.</p>
+          <p className="text-gray-600 text-center mb-6">Join the emergency response mission.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -126,7 +126,7 @@ function Register() {
               <label className="block text-sm mb-2">Location</label>
               <input
                 type="text"
-                placeholder="Enter your location"
+                placeholder="City, Country"
                 className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}

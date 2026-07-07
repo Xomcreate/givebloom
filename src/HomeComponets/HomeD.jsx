@@ -4,19 +4,19 @@ import { motion } from "framer-motion";
 function HomeD() {
   const points = [
     {
-      title: "Empower Communities",
-      desc: "Your gift helps build stronger, self-reliant communities by providing education, clean water, and healthcare.",
-      emoji: "🌍",
+      title: "Emergency Relief",
+      desc: "Your gift helps deliver urgent aid—clean water, medical care, and emergency shelter—to families affected by the earthquake in Venezuela.",
+      emoji: "🚨",
     },
     {
       title: "Support Children",
-      desc: "Every donation gives children access to food, shelter, and the chance to dream bigger.",
+      desc: "Every donation gives children affected by the disaster access to food, safety, and a sense of normalcy again.",
       emoji: "👶",
     },
     {
-      title: "Create Lasting Change",
-      desc: "Instead of a one-time relief, your contribution supports sustainable programs that change lives long-term.",
-      emoji: "✨",
+      title: "Rebuild & Recover",
+      desc: "Beyond immediate relief, your contribution supports long-term rebuilding so communities in Venezuela can recover stronger.",
+      emoji: "🏗️",
     },
   ];
 
@@ -38,8 +38,8 @@ function HomeD() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-lg text-gray-600 max-w-2xl mx-auto mb-12"
         >
-          Every gift you make is more than a donation—it’s hope, love, and a step
-          toward a brighter tomorrow for those in need.
+          Every gift you make is more than a donation—it's hope, relief, and a step
+          toward recovery for families in Venezuela affected by the earthquake.
         </motion.p>
 
         {/* Points */}

@@ -1,23 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaHandHoldingHeart, FaTruck, FaSmile } from "react-icons/fa";
+import { FaHandHoldingHeart, FaTruck, FaShieldAlt } from "react-icons/fa";
 
 function HomeB() {
   const steps = [
     {
-      icon: <FaHandHoldingHeart className="text-5xl text-yellow-400" />,
-      title: "You Give",
-      desc: "Your kind contribution provides food, clothing, and resources to communities in need.",
+      icon: <FaHandHoldingHeart className="text-5xl text-yellow-500" />,
+      title: "1. Secure Donation",
+      desc: "Your emergency contribution funding is instantly allocated to buy critical medical kits, clean water filters, and emergency rations.",
     },
     {
-      icon: <FaTruck className="text-5xl text-yellow-400" />,
-      title: "We Deliver",
-      desc: "Our volunteers and partners ensure every donation reaches those who need it most.",
+      icon: <FaTruck className="text-5xl text-yellow-500" />,
+      title: "2. Rapid Deployment",
+      desc: "Our localized network and ground partners bypass disrupted infrastructure to deliver relief directly into the hardest-hit earthquake zones.",
     },
     {
-      icon: <FaSmile className="text-5xl text-yellow-400" />,
-      title: "They Thrive",
-      desc: "Families find hope, children smile again, and lives are transformed by your generosity.",
+      icon: <FaShieldAlt className="text-5xl text-yellow-500" />,
+      title: "3. Ground Recovery",
+      desc: "Families receive immediate medical attention, safe temporary shelters, and the essential resources needed to stabilize and rebuild.",
     },
   ];
 
@@ -50,10 +50,14 @@ function HomeB() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-2xl md:text-3xl font-extrabold text-gray-800 mb-12"
+          className="text-2xl md:text-3xl font-extrabold text-gray-800 mb-4"
         >
-          How It Works
+          Our Emergency Response Pipeline
         </motion.h2>
+        
+        <p className="text-gray-600 max-w-2xl mx-auto mb-12 text-sm sm:text-base">
+          Every second counts following a seismic disaster. Here is exactly how your support is transformed into immediate on-the-ground crisis relief in Venezuela.
+        </p>
 
         {/* Steps with container animation */}
         <motion.div
@@ -67,13 +71,13 @@ function HomeB() {
             <motion.div
               key={index}
               variants={cardVariants}
-              className="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center text-center hover:shadow-2xl hover:scale-105 transition"
+              className="bg-white rounded-xl shadow-xl p-8 flex flex-col items-center text-center hover:shadow-2xl hover:scale-105 transition border-t-4 border-yellow-500"
             >
               <div className="mb-4">{step.icon}</div>
               <h3 className="text-xl font-semibold mb-2 text-black">
                 {step.title}
               </h3>
-              <p className="text-gray-700">{step.desc}</p>
+              <p className="text-gray-700 text-sm leading-relaxed">{step.desc}</p>
             </motion.div>
           ))}
         </motion.div>

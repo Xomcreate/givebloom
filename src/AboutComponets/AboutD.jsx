@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { FaHandsHelping, FaUsers, FaGlobe, FaHeart } from "react-icons/fa";
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import { FaHandsHelping, FaUsers, FaMapMarkerAlt, FaHeartbeat } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
 
 function AboutD() {
@@ -7,32 +7,33 @@ function AboutD() {
   const controls = useAnimation();
   const sectionRef = useRef(null);
 
-  const stats = [
+  // Memoizing stats to prevent unnecessary re-renders in the scroll listener dependency array
+  const stats = useMemo(() => [
     { 
       icon: <FaUsers className="text-yellow-400 text-4xl" />, 
-      value: 1000, 
-      label: "Needy People Reached", 
-      title: "Extending Our Hands" 
+      value: 2500, 
+      label: "Survivors Safely Reached", 
+      title: "Immediate Rescue Relief" 
     },
     { 
       icon: <FaHandsHelping className="text-yellow-400 text-4xl" />, 
-      value: 50, 
-      label: "Successful Donations", 
-      title: "Acts of Kindness"   // ✅ updated from "Turning Compassion into Action"
+      value: 120, 
+      label: "Emergency Shipments Delivered", 
+      title: "Vital Supply Dispatches"
     },
     { 
-      icon: <FaGlobe className="text-yellow-400 text-4xl" />, 
-      value: 5, 
-      label: "Communities Impacted", 
-      title: "Building Global Bridges" 
+      icon: <FaMapMarkerAlt className="text-yellow-400 text-4xl" />, 
+      value: 12, 
+      label: "Affected Zones Stabilized", 
+      title: "Hardest-Hit Communities" 
     },
     { 
-      icon: <FaHeart className="text-yellow-400 text-4xl" />, 
-      value: 30, 
-      label: "Supporters & Friends", 
-      title: "United by Kindness" 
+      icon: <FaHeartbeat className="text-yellow-400 text-4xl" />, 
+      value: 85, 
+      label: "Active On-Ground Responders", 
+      title: "Crisis Action Units" 
     },
-  ];
+  ], []);
 
   const [counts, setCounts] = useState(stats.map(() => 0));
 
@@ -79,12 +80,11 @@ function AboutD() {
         className="text-center max-w-3xl mx-auto mb-12"
       >
         <h2 className="text-2xl md:text-3xl font-bold text-yellow-400">
-       Our Goals & Impact  {/* ✅ updated from "Our Goals & Impact" */}
+          Our Crisis Impact & Metrics
         </h2>
-        <p className="mt-4 text-gray-300 text-lg leading-relaxed">
+        <p className="mt-4 text-gray-300 text-base sm:text-lg leading-relaxed">
           At <span className="text-yellow-400 font-semibold">GiveBloom</span>, 
-          we are dedicated to restoring hope, dignity, and opportunities for the less privileged.  
-          Our goals reflect not only numbers, but the lives and communities we touch.
+          every figure represents a family supported, a life saved, or a vital community grid reinforced after structural disaster. Our metrics focus on speed, accountability, and direct emergency impact.
         </p>
       </motion.div>
 
@@ -97,16 +97,18 @@ function AboutD() {
             animate={controls}
             variants={{ visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.6, delay: index * 0.2 }}
-            className="bg-[#2a2a2a] shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition"
+            className="bg-[#2a2a2a] shadow-md rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-lg transition border-b-2 border-transparent hover:border-yellow-400"
           >
-            {item.icon}
-            <h3 className="text-xl font-semibold text-white mt-4">
+            <div className="p-3 bg-[#1a1a1a] rounded-full shadow-inner">
+              {item.icon}
+            </div>
+            <h3 className="text-lg font-semibold text-white mt-4">
               {item.title}
             </h3>
-            <p className="text-2xl font-bold text-yellow-400 mt-2">
+            <p className="text-3xl font-extrabold text-yellow-400 mt-2">
               {counts[index]}+
             </p>
-            <p className="text-gray-300 mt-2">{item.label}</p>
+            <p className="text-gray-400 text-sm mt-2 font-medium">{item.label}</p>
           </motion.div>
         ))}
       </div>

@@ -1,60 +1,60 @@
 import React, { useState, useEffect } from "react";
 
-// Global diverse testimonials
+// Venezuela-focused testimonials (earthquake-affected areas)
 const testimonials = [
   {
-    name: "Alice Johnson",
+    name: "Valentina Márquez",
     comment:
-      "GiveBloom has changed the lives of so many children in our community. Truly inspiring!",
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg", // Europe
+      "GiveBloom has changed the lives of so many children in our community here in Caracas since the earthquake. Truly inspiring!",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
-    name: "Mark Smith",
+    name: "Carlos Andrés Pérez",
     comment:
-      "I am proud to partner with GiveBloom. Their dedication to helping people is unmatched.",
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg", // North America
+      "I am proud to partner with GiveBloom. Their dedication to helping families in La Guaira rebuild is unmatched.",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
-    name: "Sophia Lee",
+    name: "Daniela Sofía Torres",
     comment:
-      "Thanks to GiveBloom, our family has access to basic healthcare and education support.",
-    avatar: "https://randomuser.me/api/portraits/women/65.jpg", // Asia
+      "Thanks to GiveBloom, our family in Catia La Mar has access to basic healthcare and shelter after the earthquake.",
+    avatar: "https://randomuser.me/api/portraits/women/65.jpg",
   },
   {
-    name: "James Brown",
+    name: "José Miguel Rodríguez",
     comment:
-      "Amazing organization! Their programs are making a real difference in our community.",
-    avatar: "https://randomuser.me/api/portraits/men/45.jpg", // Africa
+      "Amazing organization! Their programs are making a real difference for families recovering in Morón.",
+    avatar: "https://randomuser.me/api/portraits/men/45.jpg",
   },
   {
-    name: "Emma Watson",
+    name: "María Fernanda González",
     comment:
-      "GiveBloom’s dedication is unmatched. We feel supported and cared for in every way.",
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg", // Europe
+      "GiveBloom’s dedication is unmatched. We feel supported and cared for in every way, right here in Naiguatá.",
+    avatar: "https://randomuser.me/api/portraits/women/68.jpg",
   },
   {
-    name: "Luis García",
+    name: "Luis Alejandro García",
     comment:
-      "Their programs bring hope and real change. I feel proud to contribute.",
-    avatar: "https://randomuser.me/api/portraits/men/72.jpg", // South America
+      "Their programs bring hope and real change to our neighborhood in Caraballeda. I feel proud to contribute.",
+    avatar: "https://randomuser.me/api/portraits/men/72.jpg",
   },
   {
-    name: "Aisha Hassan",
+    name: "Andrea Carolina Salas",
     comment:
-      "Thanks to GiveBloom, our community now has access to clean water and education.",
-    avatar: "https://randomuser.me/api/portraits/women/22.jpg", // Africa
+      "Thanks to GiveBloom, our community in Macuto now has access to clean water and emergency support.",
+    avatar: "https://randomuser.me/api/portraits/women/22.jpg",
   },
   {
-    name: "Kenji Tanaka",
+    name: "Ricardo Alfonso Blanco",
     comment:
-      "GiveBloom’s work is inspiring and impactful. Their support changed our lives.",
-    avatar: "https://randomuser.me/api/portraits/men/12.jpg", // Asia
+      "GiveBloom’s work is inspiring and impactful. Their support changed our lives here in Chacao, Caracas.",
+    avatar: "https://randomuser.me/api/portraits/men/12.jpg",
   },
   {
-    name: "Sofia Rossi",
+    name: "Camila Isabel Duarte",
     comment:
-      "Their dedication and passion make the world a better place. Grateful to support!",
-    avatar: "https://randomuser.me/api/portraits/women/18.jpg", // Europe
+      "Their dedication and passion make our part of La Guaira a better place. Grateful to support during recovery!",
+    avatar: "https://randomuser.me/api/portraits/women/18.jpg",
   },
 ];
 
@@ -94,10 +94,10 @@ function TestB() {
     <section className="bg-gray-50 text-black py-20 px-6 md:px-16 relative">
       <div className="max-w-6xl mx-auto text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
-          Hear from Our Supporters Worldwide
+          Hear from Our Supporters in Venezuela
         </h2>
         <p className="text-gray-700 text-lg">
-          Real stories from people across all continents whose lives have been positively impacted by GiveBloom.
+          Real stories from communities recovering from the 2026 earthquakes, whose lives have been positively impacted by GiveBloom.
         </p>
       </div>
 

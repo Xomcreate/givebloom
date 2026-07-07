@@ -14,11 +14,11 @@ function Login() {
   const navigate = useNavigate();
 
   const donors = [
-    { name: "Adaora K.", quote: "Your kindness fuels our mission every day.", img: "https://i.pravatar.cc/51" },
-    { name: "Emeka O.", quote: "Giving brings hope to those in need.", img: "https://i.pravatar.cc/52" },
-    { name: "Fatima L.", quote: "Together, we create a brighter tomorrow.", img: "https://i.pravatar.cc/53" },
-    { name: "David U.", quote: "Every act of kindness counts.", img: "https://i.pravatar.cc/54" },
-    { name: "Ngozi P.", quote: "Compassion is the foundation of change.", img: "https://i.pravatar.cc/55" },
+    { name: "Carlos M.", quote: "Knowing my support delivers clean water keeps me going.", img: "https://i.pravatar.cc/51" },
+    { name: "Elena R.", quote: "Every emergency medical kit sent brings hope to families.", img: "https://i.pravatar.cc/52" },
+    { name: "Sofia V.", quote: "Standing with Venezuela means saving lives in real-time.", img: "https://i.pravatar.cc/53" },
+    { name: "Mateo S.", quote: "Even the smallest act of solidarity counts right now.", img: "https://i.pravatar.cc/54" },
+    { name: "Gabriela L.", quote: "Compassion is our strongest response to crisis.", img: "https://i.pravatar.cc/55" },
   ];
 
   useEffect(() => {
@@ -99,7 +99,7 @@ function Login() {
                   <img src={d.img} alt={d.name} className="w-10 h-10 rounded-full" />
                   <div className="text-left">
                     <p className="font-semibold leading-tight">{d.name}</p>
-                    <p className="text-xs text-gray-500">GiveBloom Donor</p>
+                    <p className="text-xs text-gray-500">Relief Donor</p>
                   </div>
                 </div>
               </motion.div>
@@ -110,7 +110,7 @@ function Login() {
         {/* Right side login form */}
         <div className="md:w-1/2 p-8">
           <h3 className="text-2xl font-bold text-center">Sign In</h3>
-          <p className="text-gray-600 text-center mb-6">Enter your details to access GiveBloom.</p>
+          <p className="text-gray-600 text-center mb-6">Enter your details to access your account.</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>

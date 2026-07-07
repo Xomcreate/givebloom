@@ -22,7 +22,7 @@ function DonateD() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-3xl md:text-4xl font-extrabold text-white"
         >
-          Make a Difference Today
+          Stand With Venezuela
         </motion.h2>
 
         {/* Subtext */}
@@ -32,8 +32,7 @@ function DonateD() {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto"
         >
-          Your contribution helps us provide education, food, healthcare, and
-          shelter to communities in need. Together, we can create lasting change.
+          Your urgent contribution provides life-saving medical supplies, clean water, emergency shelter, and search-and-rescue support to earthquake victims. Together, we can save lives.
         </motion.p>
 
         {/* Donate Button linking to DonateB */}

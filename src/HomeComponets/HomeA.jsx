@@ -29,7 +29,7 @@ function HomeA() {
           transition={{ duration: 1 }}
           className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug mb-4 sm:mb-6"
         >
-          A Small Gift Can Change <br /> Someone’s Entire Story
+          Venezuela Earthquake Relief: <br /> Send Urgent Emergency Aid
         </motion.h1>
 
         <motion.p
@@ -38,18 +38,16 @@ function HomeA() {
           transition={{ delay: 0.5, duration: 1 }}
           className="text-sm sm:text-base md:text-lg lg:text-xl max-w-md sm:max-w-2xl mb-6 sm:mb-8 leading-relaxed"
         >
-          Every meal shared, every hand extended, every moment of kindness
-          plants hope where despair once lived. Together, we can rewrite the
-          future for children, families, and communities in need.
+          Devastating earthquakes have left thousands of families in Venezuela without shelter, food, or clean water. Your donation provides immediate, life-saving medical supplies, emergency provisions, and vital support to the affected communities.
         </motion.p>
 
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/volunteer")}
+          onClick={() => navigate("/donate")}
           className="px-4 sm:px-6 py-2 sm:py-3 bg-yellow-400 hover:bg-yellow-500 text-black text-sm sm:text-lg rounded-full shadow-lg transition flex items-center gap-2"
         >
-          Be Part of the Story
+          Donate to Help Families
           <span className="bg-white text-black px-1.5 py-0.5 rounded-full text-sm">
             ↗
           </span>

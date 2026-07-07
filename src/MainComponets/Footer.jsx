@@ -38,9 +38,10 @@ function Footer() {
             </div>
             <h1 className="text-2xl font-bold">GiveBloom</h1>
           </div>
-          <p className="text-gray-400 text-sm">
-            Empowering communities through kindness. Your generosity brings
-            hope, joy, and transformation to lives in need.
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Empowering communities through rapid crisis response. Your generosity 
+            provides critical earthquake relief, medicine, and emergency supplies 
+            to families in Venezuela.
           </p>
         </div>
 
@@ -114,42 +115,40 @@ function Footer() {
         </div>
 
         {/* Socials */}
-   {/* Socials */}
-<div>
-  <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
-  <div className="flex justify-center md:justify-start gap-4">
-    <a
-      href="https://facebook.com/yourpage" // ✅ replace with your page
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-    >
-      <FaFacebookF />
-    </a>
-    <a
-      href="https://twitter.com/yourpage" // ✅ replace with your profile
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-    >
-      <FaTwitter />
-    </a>
-    <a
-      href="https://instagram.com/yourpage" // ✅ replace with your profile
-      target="_blank"
-      rel="noopener noreferrer"
-      className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-    >
-      <FaInstagram />
-    </a>
-  </div>
-</div>
-
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+          <div className="flex justify-center md:justify-start gap-4">
+            <a
+              href="https://facebook.com/yourpage" // ✅ replace with your page
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
+            >
+              <FaFacebookF />
+            </a>
+            <a
+              href="https://twitter.com/yourpage" // ✅ replace with your profile
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
+            >
+              <FaTwitter />
+            </a>
+            <a
+              href="https://instagram.com/yourpage" // ✅ replace with your profile
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
+            >
+              <FaInstagram />
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-700 text-center py-4 text-gray-500 text-sm">
-        © {new Date().getFullYear()} Xomcodes. All rights reserved.
+        © {new Date().getFullYear()} GiveBloom. All rights reserved.
       </div>
     </footer>
   );

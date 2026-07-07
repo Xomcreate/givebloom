@@ -17,9 +17,10 @@ function TestA() {
           </h2>
           <p className="text-lg md:text-xl mb-6">
             “Thanks to GiveBloom’s programs, my children now have access to
-            education and healthcare. Their support truly changed our future.”
+            education and healthcare here in Venezuela. Their support truly
+            changed our future.”
           </p>
-          <span className="font-semibold">— Sophia Lee</span>
+          <span className="font-semibold">— Valentina Márquez, Caracas, Venezuela</span>
         </motion.div>
 
         {/* Hero Image from public/images */}

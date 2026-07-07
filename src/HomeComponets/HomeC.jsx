@@ -5,28 +5,28 @@ import { Link } from "react-router-dom";
 function HomeC() {
   const categories = [
     {
-      title: "Education Support",
-      desc: "Help children gain access to quality education and school supplies.",
-      image: "/Images/edu.jpg",
-      color: "bg-yellow-100 text-yellow-700 border-yellow-300",
+      title: "Emergency Shelter",
+      desc: "Help displaced families in Venezuela find safe, temporary housing after the earthquake.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRydTZXe1GNTTYUYjyl0nuG2t3yuXjQ14aHnb-8lEKCQ&s=10",
+      color: "bg-blue-100 text-blue-700 border-blue-300",
     },
     {
-      title: "Healthcare Aid",
-      desc: "Provide medical assistance and life-saving treatments to those in need.",
-      image: "/Images/per.jpg",
-      color: "bg-green-100 text-green-700 border-green-300",
-    },
-    {
-      title: "Food for All",
-      desc: "Support feeding programs and fight hunger in vulnerable communities.",
-      image: "/Images/foo.jpg",
+      title: "Medical Aid",
+      desc: "Provide urgent medical care and supplies to earthquake survivors and injured victims.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS_moBmF_CRktpXElegFrSEO2ibdzr8Fa4AlJYSWsnRg&s=10",
       color: "bg-red-100 text-red-700 border-red-300",
     },
     {
-      title: "Shelter & Clothing",
-      desc: "Give shelter and clothing to homeless families and children.",
-      image: "/Images/dig.jpg",
-      color: "bg-blue-100 text-blue-700 border-blue-300",
+      title: "Food & Water",
+      desc: "Deliver clean water and emergency food supplies to affected communities in Venezuela.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoQ3uT-IVme06k630wP3uMCjazdz0LCLQ2fbonQtcSFw&s=10",
+      color: "bg-green-100 text-green-700 border-green-300",
+    },
+    {
+      title: "Rebuilding Homes",
+      desc: "Support reconstruction efforts to help families rebuild homes destroyed by the earthquake.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQupyJTBYVkBNfx24tAvQMxpYK6UEmAljA36wFBkVidpg&s=10",
+      color: "bg-yellow-100 text-yellow-700 border-yellow-300",
     },
   ];
 
@@ -55,10 +55,20 @@ function HomeC() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-2xl md:text-3xl font-extrabold text-gray-800 mb-12"
+          className="text-2xl md:text-3xl font-extrabold text-gray-800 mb-4"
         >
-          Donation Categories
+          Venezuela Earthquake Relief
         </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-gray-600 mb-12 max-w-2xl mx-auto"
+        >
+          Your donation can bring urgent relief to families affected by the earthquake in Venezuela. Choose a cause below to help.
+        </motion.p>
 
         <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-10"

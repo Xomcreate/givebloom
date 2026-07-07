@@ -18,7 +18,7 @@ function DonateB() {
   const [error, setError] = useState("");
   const [isEmailEditable, setIsEmailEditable] = useState(true);
 
-  const presetAmounts = [1000, 5000, 10000, 20000];
+  const presetAmounts = [10, 25, 50, 100];
   const causes = ["Education", "Food Drive", "Medical Outreach", "Clean Water", "Holiday Charity"];
 
   // Prefill email and name
@@ -165,13 +165,13 @@ function DonateB() {
                     : "bg-gray-100 hover:bg-yellow-50 border-gray-300 text-gray-700"
                 }`}
               >
-                ₦{amt.toLocaleString()}
+                ${amt.toLocaleString()}
               </button>
             ))}
           </div>
           <input
             type="number"
-            placeholder="Or enter custom amount"
+            placeholder="Or enter custom amount ($)"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
