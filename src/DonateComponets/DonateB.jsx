@@ -10,8 +10,6 @@ function DonateB() {
   const [email, setEmail] = useState("");
   const [cause, setCause] = useState("");
 
-  const [mobileProvider, setMobileProvider] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
   const [paypalEmail, setPaypalEmail] = useState("");
 
   const [message, setMessage] = useState("");
@@ -82,7 +80,7 @@ function DonateB() {
     }
 
     // -----------------------------
-    // Other payment methods → Pending
+    // PayPal → Pending
     // -----------------------------
     try {
       const data = {
@@ -91,15 +89,7 @@ function DonateB() {
         amount,
         cause,
         paymentMethod,
-        bankDetails:
-          paymentMethod === "bank"
-            ? { accountName: "Charity Foundation", bank: "Example Bank", accountNumber: "1234567890" }
-            : undefined,
         paypalEmail: paymentMethod === "paypal" ? paypalEmail : undefined,
-        mobileMoney:
-          paymentMethod === "mobile"
-            ? { provider: mobileProvider, number: mobileNumber }
-            : undefined,
         status: "Pending",
       };
 
@@ -113,8 +103,6 @@ function DonateB() {
       setCause("");
       if (!localStorage.getItem("userName")) setName("");
       if (!localStorage.getItem("userEmail")) setEmail("");
-      setMobileProvider("");
-      setMobileNumber("");
       setPaypalEmail("");
     } catch (err) {
       console.error(err);
@@ -217,10 +205,8 @@ function DonateB() {
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
           >
             <option value="">-- Select Method --</option>
-            <option value="card">Credit/Debit Card</option>
-            <option value="bank">Bank Transfer</option>
+            <option value="card">Credit/Debit Card (Paystack)</option>
             <option value="paypal">PayPal</option>
-            <option value="mobile">Mobile Money</option>
           </select>
         </div>
 
@@ -231,15 +217,6 @@ function DonateB() {
           </p>
         )}
 
-        {paymentMethod === "bank" && (
-          <div className="space-y-3 text-gray-700">
-            <p className="font-medium">Transfer to:</p>
-            <p>Account Name: <span className="font-semibold">GiveBloom (Ojimba Prisca)</span></p>
-            <p>Bank: United Bank Of Africa (UBA)</p>
-            <p>Account Number: 2307150859</p>
-          </div>
-        )}
-
         {paymentMethod === "paypal" && (
           <input
             type="email"
@@ -248,25 +225,6 @@ function DonateB() {
             onChange={(e) => setPaypalEmail(e.target.value)}
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
           />
-        )}
-
-        {paymentMethod === "mobile" && (
-          <div className="space-y-4">
-            <input
-              type="text"
-              placeholder="Mobile Money Provider"
-              value={mobileProvider}
-              onChange={(e) => setMobileProvider(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
-            />
-            <input
-              type="text"
-              placeholder="Mobile Money Number"
-              value={mobileNumber}
-              onChange={(e) => setMobileNumber(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
-            />
-          </div>
         )}
 
         <button

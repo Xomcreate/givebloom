@@ -21,7 +21,7 @@ function VolunteerD() {
     setStatusMessage("");
     try {
       // ✅ Updated URL to Render deployment
-      await axios.post("https://g-bloombk.onrender.com/api/volunteers", formData);
+      await axios.post("https://g-bloombk-production.up.railway.app/api/volunteers", formData);
       setStatusMessage("✅ ¡Gracias! Thank you for signing up! We will contact you soon.");
       setFormData({ name: "", email: "", phone: "", interest: "Volunteer", message: "" });
     } catch (err) {

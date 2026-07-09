@@ -17,8 +17,8 @@ function User() {
     { name: "Dashboard", icon: <FaTachometerAlt />, key: "dashboard" },
     { name: "Profile", icon: <FaDonate />, key: "profile" },
     { name: "My Donations", icon: <FaHandsHelping />, key: "mydonations" },
-    { name: "Volunteering", icon: <FaHandsHelping />, key: "volunteering" },
-    { name: "Achievement", icon: <FaHandsHelping />, key: "achievement" },
+    // { name: "Volunteering", icon: <FaHandsHelping />, key: "volunteering" },
+    // { name: "Achievement", icon: <FaHandsHelping />, key: "achievement" },
     { name: "Referral", icon: <FaHandsHelping />, key: "ref" },
   ];
 
