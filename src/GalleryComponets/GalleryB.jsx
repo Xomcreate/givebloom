@@ -12,7 +12,7 @@ function GalleryB() {
     const fetchPublicGallery = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("https://g-bloombk.onrender.com/api/gallery");
+        const res = await axios.get("https://g-bloombk-production.up.railway.app/api/gallery");
         setGalleryImages(res.data);
       } catch (error) {
         console.error("Error fetching public gallery:", error);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaPhoneAlt, FaCheckCircle, FaTrash } from "react-icons/fa";
 
-const API_BASE = "https://g-bloombk.onrender.com"; // ✅ Updated live URL
+const API_BASE = "https://g-bloombk-production.up.railway.app"; // ✅ Updated live URL
 
 function ContactManage() {
   const [contacts, setContacts] = useState([]);

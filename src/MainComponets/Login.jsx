@@ -38,7 +38,7 @@ function Login() {
     setError("");
 
     try {
-      const res = await axios.post("https://g-bloombk.onrender.com/api/auth/login", {
+      const res = await axios.post("https://g-bloombk-production.up.railway.app/api/auth/login", {
         email,
         password: pwd,
       });
@@ -59,7 +59,7 @@ function Login() {
       // --- Check if user is a volunteer ---
       let isVolunteer = false;
       try {
-        const volRes = await axios.get(`http://localhost:5000/api/volunteers/me/${user.email}`);
+        const volRes = await axios.get(`https://g-bloombk-production.up.railway.app/api/volunteers/me/${user.email}`);
         if (volRes.data) isVolunteer = true;
       } catch (err) {
         isVolunteer = false;

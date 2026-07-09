@@ -3,7 +3,7 @@ import axios from "axios";
 import BlogE from "./BlogE";
 
 // Use your Render URL
-const API_BASE = "https://g-bloombk.onrender.com/api";
+const API_BASE = "https://g-bloombk-production.up.railway.app/api";
 
 function BlogD() {
   const [comments, setComments] = useState([]);

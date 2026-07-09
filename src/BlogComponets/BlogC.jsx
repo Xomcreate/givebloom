@@ -15,7 +15,7 @@ function BlogC() {
     setMessage(null);
 
     try {
-      await axios.post("https://g-bloombk.onrender.com/api/subscribe", { email });
+      await axios.post("https://g-bloombk-production.up.railway.app/api/subscribe", { email });
       setMessage({ type: "success", text: "Alerts activated. You will receive immediate field updates." });
       setEmail("");
     } catch (err) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk.onrender.com/api/donations"; // ✅ Render backend
+const API_BASE = "https://g-bloombk-production.up.railway.app/api/donations"; // ✅ Render backend
 
 function DonateB() {
   const [amount, setAmount] = useState("");

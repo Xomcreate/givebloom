@@ -39,7 +39,7 @@ function ContactB() {
     setErrorMessage("");
 
     try {
-      const res = await fetch("https://g-bloombk.onrender.com/api/contact", {
+      const res = await fetch("https://g-bloombk-production.up.railway.app/api/contact", {
         method: "POST",
         mode: 'cors',
         headers: { "Content-Type": "application/json" },

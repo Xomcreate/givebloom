@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaTrash } from "react-icons/fa";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk.onrender.com/api"; // backend base URL
+const API_BASE = "https://g-bloombk-production.up.railway.app/api"; // backend base URL
 
 function Subscribe() {
   const [subscribers, setSubscribers] = useState([]);

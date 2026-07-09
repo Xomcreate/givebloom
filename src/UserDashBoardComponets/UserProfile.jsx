@@ -54,7 +54,7 @@ export default function UserProfile() {
 
     try {
       const res = await axios.put(
-        `https://g-bloombk.onrender.com/api/auth/users/${user.id}`,
+        `https://g-bloombk-production.up.railway.app/api/auth/users/${user.id}`,
         {
           fullName: user.name,
           email: user.email,

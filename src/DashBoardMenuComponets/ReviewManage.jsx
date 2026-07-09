@@ -8,7 +8,7 @@ function ReviewManage() {
   // Fetch all reviews
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("https://g-bloombk.onrender.com/api/reviews");
+      const res = await axios.get("https://g-bloombk-production.up.railway.app/api/reviews");
       setReviews(res.data);
     } catch (err) {
       console.log(err);

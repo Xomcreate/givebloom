@@ -14,7 +14,7 @@ function UserVolunteer() {
 
     const fetchVolunteer = async () => {
       try {
-        const res = await axios.get(`https://g-bloombk.onrender.com/api/volunteers/me/${email}`);
+        const res = await axios.get(`https://g-bloombk-production.up.railway.app/api/volunteers/me/${email}`);
         setVolunteer(res.data);
       } catch (err) {
         console.error("Error fetching volunteer profile:", err);

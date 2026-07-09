@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
 
-const API_BASE = "https://g-bloombk.onrender.com"; // Backend URL
+const API_BASE = "https://g-bloombk-production.up.railway.app"; // Backend URL
 
 function BlogB() {
   const [blogs, setBlogs] = useState([]);

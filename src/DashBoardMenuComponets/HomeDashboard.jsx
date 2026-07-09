@@ -12,7 +12,7 @@ import {
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 // ✅ Live backend URL
-const API_BASE = "https://g-bloombk.onrender.com";
+const API_BASE = "https://g-bloombk-production.up.railway.app";
 
 function HomeDashboard() {
   const [contacts, setContacts] = useState([]);

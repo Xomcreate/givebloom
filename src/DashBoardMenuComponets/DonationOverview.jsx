@@ -5,7 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-const API_BASE = "https://g-bloombk.onrender.com/api"; // ✅ base URL
+const API_BASE = "https://g-bloombk-production.up.railway.app/api"; // ✅ base URL
 
 function DonationOverview() {
   const [stats, setStats] = useState({

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // ✅ Deployed backend URL
-const API_BASE = "https://g-bloombk.onrender.com/api/gallery";
+const API_BASE = "https://g-bloombk-production.up.railway.app/api/gallery";
 
 function ManageGallery() {
   const [galleryItems, setGalleryItems] = useState([]);

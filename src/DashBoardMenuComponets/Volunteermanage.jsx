@@ -24,7 +24,7 @@ function Volunteermanage() {
   // Approve volunteer
   const handleApprove = async (id) => {
     try {
-      const res = await axios.put(`https://g-bloombk.onrender.com/api/volunteers/${id}/approve`);
+      const res = await axios.put(`https://g-bloombk-production.up.railway.app/api/volunteers/${id}/approve`);
       setVolunteers((prev) =>
         prev.map((v) => (v._id === id ? res.data : v))
       );

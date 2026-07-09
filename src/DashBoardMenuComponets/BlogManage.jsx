@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk.onrender.com/api/blogs"; // your backend URL
+const API_BASE = "https://g-bloombk-production.up.railway.app/api/blogs"; // your backend URL
 
 function BlogManage() {
   const [blogs, setBlogs] = useState([]);

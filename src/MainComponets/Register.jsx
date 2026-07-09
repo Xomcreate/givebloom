@@ -26,7 +26,7 @@ function Register() {
     }
 
     try {
-      const res = await axios.post("https://g-bloombk.onrender.com/api/auth/register", {
+      const res = await axios.post("https://g-bloombk-production.up.railway.app/api/auth/register", {
         fullName,
         email,
         phone,      // ✅ send phone
