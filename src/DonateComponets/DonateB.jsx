@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_BASE = "https://g-bloombk-production.up.railway.app/api/donations"; // ✅ Render backend
+const API_BASE = "https://g-bloombk-production.up.railway.app/api/donations";
+
+// Fill these in with your real details
+const BANK_DETAILS = {
+  bankName: "GTBank",
+  accountName: "Bloom Foundation",
+  accountNumber: "0123456789",
+};
+
+const CRYPTO_WALLETS = [
+  { coin: "USDT (TRC20)", address: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXX" },
+  { coin: "BTC", address: "bc1qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
+];
 
 function DonateB() {
   const [amount, setAmount] = useState("");
@@ -9,43 +21,24 @@ function DonateB() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [cause, setCause] = useState("");
-
-  const [paypalEmail, setPaypalEmail] = useState("");
+  const [transactionRef, setTransactionRef] = useState("");
+  const [receipt, setReceipt] = useState(null);
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const [isEmailEditable, setIsEmailEditable] = useState(true);
 
   const presetAmounts = [10, 25, 50, 100];
   const causes = ["Education", "Food Drive", "Medical Outreach", "Clean Water", "Holiday Charity"];
 
-  // Prefill email and name
   useEffect(() => {
     const storedEmail = localStorage.getItem("userEmail");
     const storedName = localStorage.getItem("userName");
     if (storedEmail) setEmail(storedEmail);
     if (storedName) setName(storedName);
     if (storedEmail) setIsEmailEditable(false);
-
-    // If redirected back from Paystack with reference
-    const urlParams = new URLSearchParams(window.location.search);
-    const reference = urlParams.get("reference");
-    if (reference) {
-      verifyPaystackDonation(reference);
-    }
   }, []);
-
-  const verifyPaystackDonation = async (reference) => {
-    try {
-      const res = await axios.get(`${API_BASE}/paystack/verify/${reference}`);
-      setMessage("Donation successful! Thank you 💛");
-      setError("");
-      window.history.replaceState({}, document.title, window.location.pathname);
-    } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Donation verification failed");
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,57 +49,40 @@ function DonateB() {
       setError("Please fill in all required fields, including cause.");
       return;
     }
-
-    // -----------------------------
-    // Card Payment → Paystack
-    // -----------------------------
-    if (paymentMethod === "card") {
-      try {
-        const res = await axios.post(`${API_BASE}/paystack`, {
-          name,
-          email,
-          amount,
-          cause,
-          callback_url: window.location.href, // redirect back here
-        });
-
-        // Redirect user to Paystack payment page
-        window.location.href = res.data.authorization_url;
-      } catch (err) {
-        console.error(err);
-        setError(err.response?.data?.message || "Paystack initialization failed");
-      }
+    if (!receipt) {
+      setError("Please upload proof of payment (screenshot or receipt).");
       return;
     }
 
-    // -----------------------------
-    // PayPal → Pending
-    // -----------------------------
     try {
-      const data = {
-        name,
-        email,
-        amount,
-        cause,
-        paymentMethod,
-        paypalEmail: paymentMethod === "paypal" ? paypalEmail : undefined,
-        status: "Pending",
-      };
+      setSubmitting(true);
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("amount", amount);
+      formData.append("cause", cause);
+      formData.append("paymentMethod", paymentMethod);
+      formData.append("transactionRef", transactionRef);
+      formData.append("receipt", receipt);
 
-      await axios.post(`${API_BASE}`, data);
+      await axios.post(API_BASE, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-      setMessage("Donation submitted! Awaiting confirmation 💛");
+      setMessage("Donation submitted! Awaiting admin confirmation 💛");
 
-      // Reset form
       setAmount("");
       setPaymentMethod("");
       setCause("");
+      setTransactionRef("");
+      setReceipt(null);
       if (!localStorage.getItem("userName")) setName("");
       if (!localStorage.getItem("userEmail")) setEmail("");
-      setPaypalEmail("");
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Donation failed. Try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -205,33 +181,83 @@ function DonateB() {
             className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
           >
             <option value="">-- Select Method --</option>
-            <option value="card">Credit/Debit Card (Paystack)</option>
-            <option value="paypal">PayPal</option>
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="crypto">Crypto</option>
+            <option value="card">Card (via your bank app)</option>
           </select>
         </div>
 
-        {/* Conditional Fields */}
-        {paymentMethod === "card" && (
-          <p className="text-sm text-gray-500">
-            Card payments are handled securely via Paystack. You will enter your card details on Paystack's page after clicking "Donate Now".
-          </p>
+        {/* Bank Transfer instructions */}
+        {paymentMethod === "bank_transfer" && (
+          <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 text-sm text-gray-700 space-y-1">
+            <p className="font-semibold">Transfer to:</p>
+            <p>Bank: {BANK_DETAILS.bankName}</p>
+            <p>Account Name: {BANK_DETAILS.accountName}</p>
+            <p>Account Number: {BANK_DETAILS.accountNumber}</p>
+            <p className="text-xs text-gray-500 mt-2">
+              After transferring, upload your receipt/screenshot below.
+            </p>
+          </div>
         )}
 
-        {paymentMethod === "paypal" && (
-          <input
-            type="email"
-            placeholder="PayPal Email"
-            value={paypalEmail}
-            onChange={(e) => setPaypalEmail(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
-          />
+        {/* Card instructions */}
+        {paymentMethod === "card" && (
+          <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 text-sm text-gray-700 space-y-1">
+            <p className="font-semibold">Transfer to:</p>
+            <p>Bank: {BANK_DETAILS.bankName}</p>
+            <p>Account Name: {BANK_DETAILS.accountName}</p>
+            <p>Account Number: {BANK_DETAILS.accountNumber}</p>
+            <p className="text-xs text-gray-500 mt-2">
+              Use your card via your bank's app or USSD to send to this account, then upload proof below.
+            </p>
+          </div>
+        )}
+
+        {/* Crypto instructions */}
+        {paymentMethod === "crypto" && (
+          <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4 text-sm text-gray-700 space-y-2">
+            <p className="font-semibold">Send to one of these wallets:</p>
+            {CRYPTO_WALLETS.map((w, idx) => (
+              <p key={idx} className="break-all">
+                <span className="font-medium">{w.coin}:</span> {w.address}
+              </p>
+            ))}
+            <p className="text-xs text-gray-500 mt-2">
+              After sending, upload a screenshot of the transaction below.
+            </p>
+          </div>
+        )}
+
+        {/* Transaction ref + Receipt upload, shown once a method is chosen */}
+        {paymentMethod && (
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Transaction reference / hash (optional)"
+              value={transactionRef}
+              onChange={(e) => setTransactionRef(e.target.value)}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
+            />
+            <div>
+              <label className="block text-gray-700 font-medium mb-2">
+                Upload Proof of Payment
+              </label>
+              <input
+                type="file"
+                accept="image/*,application/pdf"
+                onChange={(e) => setReceipt(e.target.files[0])}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
+            </div>
+          </div>
         )}
 
         <button
           type="submit"
-          className="w-full bg-yellow-400 text-white py-3 rounded-xl font-semibold hover:bg-yellow-500 transition shadow-md"
+          disabled={submitting}
+          className="w-full bg-yellow-400 text-white py-3 rounded-xl font-semibold hover:bg-yellow-500 transition shadow-md disabled:opacity-60"
         >
-          Donate Now
+          {submitting ? "Submitting..." : "Submit Donation"}
         </button>
       </form>
     </div>

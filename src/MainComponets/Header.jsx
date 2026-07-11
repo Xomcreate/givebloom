@@ -44,7 +44,7 @@ function Header() {
           </span>
           <span className="flex items-center gap-1 justify-center md:justify-start">
             <FaPhone className="text-yellow-400" />
-            +1 (248) 759-585836
+           +1 (248) 759-5836
           </span>
         </div>
 

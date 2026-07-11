@@ -5,7 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
-const API_BASE = "https://g-bloombk-production.up.railway.app/api"; // ✅ base URL
+const API_BASE = "https://g-bloombk-production.up.railway.app/api";
 
 function DonationOverview() {
   const [stats, setStats] = useState({
@@ -17,6 +17,20 @@ function DonationOverview() {
 
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const formatMethod = (method) => {
+    if (!method) return "Unknown";
+    return method
+      .split("_")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  };
+
+  const getStatusColor = (status) => {
+    if (status === "Completed") return "text-green-400";
+    if (status === "Rejected") return "text-red-400";
+    return "text-yellow-400";
+  };
 
   const fetchDonations = async () => {
     try {
@@ -47,17 +61,15 @@ function DonationOverview() {
           cause: d.cause || "General",
           amount: Number(d.amount),
           amountText: `₦${Number(d.amount).toLocaleString()}`,
-          method:
-            d.paymentMethod === "mobile"
-              ? "Mobile Money"
-              : d.paymentMethod.charAt(0).toUpperCase() + d.paymentMethod.slice(1),
+          method: formatMethod(d.paymentMethod),
+          receiptUrl: d.receiptUrl,
           date: new Date(d.createdAt).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
           }),
           status: d.status,
-          color: d.status === "Completed" ? "text-green-400" : "text-yellow-400",
+          color: getStatusColor(d.status),
         }));
 
       setDonations(formattedDonations);
@@ -91,7 +103,6 @@ function DonationOverview() {
     )
       return;
 
-    // Second confirmation since this is destructive and irreversible
     if (!window.confirm("Really delete EVERYTHING? Type OK to confirm.")) return;
 
     try {
@@ -111,6 +122,18 @@ function DonationOverview() {
     } catch (err) {
       console.error(err);
       alert("Failed to approve donation");
+    }
+  };
+
+  const handleReject = async id => {
+    const note = window.prompt("Optional: add a reason for rejecting this donation");
+    if (note === null) return;
+    try {
+      await axios.put(`${API_BASE}/donations/reject/${id}`, { note });
+      fetchDonations();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to reject donation");
     }
   };
 
@@ -183,7 +206,7 @@ function DonationOverview() {
         {donations.length === 0 ? (
           <p className="text-gray-400 text-sm">No donations yet.</p>
         ) : (
-          <div className="hidden md:block">
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-gray-700 text-yellow-400">
@@ -191,6 +214,7 @@ function DonationOverview() {
                   <th className="py-2 px-2">Cause</th>
                   <th className="py-2 px-2">Amount</th>
                   <th className="py-2 px-2">Method</th>
+                  <th className="py-2 px-2">Receipt</th>
                   <th className="py-2 px-2">Date</th>
                   <th className="py-2 px-2">Status</th>
                   <th className="py-2 px-2">Action</th>
@@ -198,21 +222,43 @@ function DonationOverview() {
               </thead>
               <tbody>
                 {donations.map((d, idx) => (
-                  <tr key={idx} className="border-b border-gray-700">
+                  <tr key={d._id || idx} className="border-b border-gray-700">
                     <td className="py-2 px-2">{d.donor}</td>
                     <td className="py-2 px-2">{d.cause}</td>
                     <td className="py-2 px-2 text-yellow-400 font-semibold">{d.amountText}</td>
                     <td className="py-2 px-2">{d.method}</td>
+                    <td className="py-2 px-2">
+                      {d.receiptUrl ? (
+                        <a
+                          href={d.receiptUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-400 underline"
+                        >
+                          View
+                        </a>
+                      ) : (
+                        <span className="text-gray-500">—</span>
+                      )}
+                    </td>
                     <td className="py-2 px-2">{d.date}</td>
                     <td className={`py-2 px-2 ${d.color}`}>{d.status}</td>
-                    <td className="py-2 px-2 space-x-2">
+                    <td className="py-2 px-2 space-x-2 whitespace-nowrap">
                       {d.status === "Pending" && (
-                        <button
-                          className="bg-green-600 text-white px-2 py-1 rounded"
-                          onClick={() => handleApprove(d._id)}
-                        >
-                          Approve
-                        </button>
+                        <>
+                          <button
+                            className="bg-green-600 text-white px-2 py-1 rounded"
+                            onClick={() => handleApprove(d._id)}
+                          >
+                            Approve
+                          </button>
+                          <button
+                            className="bg-yellow-600 text-white px-2 py-1 rounded"
+                            onClick={() => handleReject(d._id)}
+                          >
+                            Reject
+                          </button>
+                        </>
                       )}
                       <button
                         className="bg-red-600 text-white px-2 py-1 rounded"
@@ -236,7 +282,7 @@ function DonationOverview() {
       >
         <h2 className="text-lg font-semibold mb-4">Donation Trends</h2>
         <div className="h-64">
-          <Pie data={chartData} options={chartOptions} />
+          <Pie key={donations.length} data={chartData} options={chartOptions} />
         </div>
       </div>
     </div>

@@ -124,7 +124,7 @@ function Footer() {
             </li>
             <li className="flex items-center justify-center md:justify-start gap-2">
               <FaPhone className="text-yellow-400 flex-shrink-0" />
-              <span> +1 (248) 759-585836</span>
+              <span> +1 (248) 759-5836</span>
             </li>
             <li className="flex items-center justify-center md:justify-start gap-2">
               <FaMapMarkerAlt className="text-yellow-400 flex-shrink-0" />
