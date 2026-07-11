@@ -56,6 +56,29 @@ function UserManage() {
     }
   };
 
+  const handleDeleteAll = async () => {
+    const confirmed = window.confirm(
+      "This will permanently delete ALL users except your own account. This cannot be undone. Continue?"
+    );
+    if (!confirmed) return;
+
+    // Extra friction for a destructive, irreversible bulk action
+    const typed = window.prompt('Type "DELETE ALL" to confirm.');
+    if (typed !== "DELETE ALL") {
+      alert("Confirmation text did not match. Cancelled.");
+      return;
+    }
+
+    try {
+      const res = await axios.delete(`${API_BASE}/api/auth/users`, getAuthHeaders());
+      alert(res.data.message);
+      fetchUsers();
+    } catch (err) {
+      console.error("Delete all error:", err.message);
+      alert(err.response?.data?.message || "Failed to delete users.");
+    }
+  };
+
   if (loading) return <p className="p-6 text-yellow-400">Loading users...</p>;
 
   if (error) {
@@ -105,7 +128,15 @@ function UserManage() {
       </div>
 
       <div className="bg-[#1a1a1a] text-white shadow-md rounded-xl p-6 overflow-x-auto">
-        <h3 className="text-xl font-semibold mb-4 text-yellow-400">Registered Users</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-semibold text-yellow-400">Registered Users</h3>
+          <button
+            onClick={handleDeleteAll}
+            className="bg-red-700 hover:bg-red-800 px-4 py-2 rounded text-white text-sm font-semibold"
+          >
+            Delete All Users
+          </button>
+        </div>
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-[#2a2a2a] text-yellow-400">

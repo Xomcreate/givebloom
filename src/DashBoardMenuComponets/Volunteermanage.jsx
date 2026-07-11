@@ -1,23 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { FaUserFriends, FaUserPlus, FaHandshake } from "react-icons/fa";
+import { FaUserFriends, FaUserPlus, FaHandshake, FaTimes } from "react-icons/fa";
 import axios from "axios";
+
+const API_BASE = "https://g-bloombk.onrender.com/api/volunteers";
+
+const initialForm = {
+  name: "",
+  email: "",
+  phone: "",
+  interest: "Volunteer",
+  message: "",
+};
 
 function Volunteermanage() {
   const [volunteers, setVolunteers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Add Volunteer modal state
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [form, setForm] = useState(initialForm);
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState("");
+
   // Fetch volunteers from backend
+  const fetchVolunteers = async () => {
+    try {
+      const res = await axios.get(API_BASE);
+      setVolunteers(res.data);
+    } catch (err) {
+      console.error("Error fetching volunteers:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchVolunteers = async () => {
-      try {
-        const res = await axios.get("https://g-bloombk.onrender.com/api/volunteers");
-        setVolunteers(res.data);
-      } catch (err) {
-        console.error("Error fetching volunteers:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchVolunteers();
   }, []);
 
@@ -36,10 +53,70 @@ function Volunteermanage() {
   // Delete volunteer
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://g-bloombk.onrender.com/api/volunteers/${id}`);
+      await axios.delete(`${API_BASE}/${id}`);
       setVolunteers((prev) => prev.filter((v) => v._id !== id));
     } catch (err) {
       console.error("Error deleting volunteer:", err);
+    }
+  };
+
+  // Delete ALL volunteers
+  const handleDeleteAll = async () => {
+    if (
+      !window.confirm(
+        "This will permanently delete ALL volunteer records. This cannot be undone. Are you sure?"
+      )
+    )
+      return;
+
+    if (!window.confirm("Really delete EVERYONE? This is your final confirmation.")) return;
+
+    try {
+      await axios.delete(`${API_BASE}/all`);
+      setVolunteers([]);
+    } catch (err) {
+      console.error("Error deleting all volunteers:", err);
+      alert("Failed to delete all volunteers");
+    }
+  };
+
+  // ---- Add Volunteer modal handlers ----
+  const openAddModal = () => {
+    setForm(initialForm);
+    setFormError("");
+    setShowAddModal(true);
+  };
+
+  const closeAddModal = () => {
+    if (submitting) return; // don't close mid-submit
+    setShowAddModal(false);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddVolunteer = async (e) => {
+    e.preventDefault();
+    setFormError("");
+
+    if (!form.name || !form.email || !form.phone || !form.interest) {
+      setFormError("Name, email, phone, and interest are required.");
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await axios.post(API_BASE, form);
+      setVolunteers((prev) => [res.data, ...prev]);
+      setShowAddModal(false);
+      setForm(initialForm);
+    } catch (err) {
+      console.error("Error adding volunteer:", err);
+      setFormError(err.response?.data?.error || "Failed to add volunteer. Try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -50,9 +127,22 @@ function Volunteermanage() {
         <h2 className="text-2xl font-bold text-yellow-400 bg-[#1a1a1a] px-4 py-2 rounded-lg shadow">
           Volunteer & Partners Management
         </h2>
-        <button className="bg-yellow-400 text-[#1a1a1a] font-semibold px-4 py-2 rounded-lg shadow hover:bg-yellow-500 transition">
-          + Add Volunteer
-        </button>
+        <div className="flex gap-3">
+          {volunteers.length > 0 && (
+            <button
+              onClick={handleDeleteAll}
+              className="bg-red-700 hover:bg-red-800 text-white font-semibold px-4 py-2 rounded-lg shadow transition"
+            >
+              Delete All
+            </button>
+          )}
+          <button
+            onClick={openAddModal}
+            className="bg-yellow-400 text-[#1a1a1a] font-semibold px-4 py-2 rounded-lg shadow hover:bg-yellow-500 transition"
+          >
+            + Add Volunteer
+          </button>
+        </div>
       </div>
 
       {/* Stats Overview */}
@@ -194,6 +284,118 @@ function Volunteermanage() {
           </>
         )}
       </div>
+
+      {/* Add Volunteer Modal */}
+      {showAddModal && (
+        <div
+          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+          onClick={closeAddModal}
+        >
+          <div
+            className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeAddModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition"
+              type="button"
+            >
+              <FaTimes size={18} />
+            </button>
+
+            <h3 className="text-xl font-bold text-[#1a1a1a] mb-4">Add Volunteer</h3>
+
+            {formError && (
+              <p className="text-red-600 text-sm mb-3 bg-red-50 border border-red-200 rounded px-3 py-2">
+                {formError}
+              </p>
+            )}
+
+            <form onSubmit={handleAddVolunteer} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={form.name}
+                  onChange={handleFormChange}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
+                  placeholder="Jane Doe"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleFormChange}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
+                  placeholder="jane@example.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleFormChange}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
+                  placeholder="+234 800 000 0000"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Interest</label>
+                <select
+                  name="interest"
+                  value={form.interest}
+                  onChange={handleFormChange}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
+                >
+                  <option value="Volunteer">Volunteer</option>
+                  <option value="Partner">Partner</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Message (optional)
+                </label>
+                <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleFormChange}
+                  rows={3}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-yellow-400 outline-none"
+                  placeholder="Anything you'd like us to know..."
+                />
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={closeAddModal}
+                  className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg font-medium hover:bg-gray-50 transition"
+                  disabled={submitting}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 bg-yellow-400 text-[#1a1a1a] py-2 rounded-lg font-semibold hover:bg-yellow-500 transition disabled:opacity-60"
+                  disabled={submitting}
+                >
+                  {submitting ? "Adding..." : "Add Volunteer"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

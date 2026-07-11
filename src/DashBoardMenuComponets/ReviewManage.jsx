@@ -2,13 +2,24 @@ import React, { useEffect, useState } from "react";
 import { FaStar, FaCheck, FaTrash } from "react-icons/fa";
 import axios from "axios";
 
+const API_BASE = import.meta.env.VITE_API_URL || "https://g-bloombk-production.up.railway.app";
+
 function ReviewManage() {
   const [reviews, setReviews] = useState([]);
 
-  // Fetch all reviews
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem("token");
+    return {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  };
+
+  // Fetch all reviews (public, no auth needed)
   const fetchReviews = async () => {
     try {
-      const res = await axios.get("https://g-bloombk-production.up.railway.app/api/reviews");
+      const res = await axios.get(`${API_BASE}/api/reviews`);
       setReviews(res.data);
     } catch (err) {
       console.log(err);
@@ -22,20 +33,45 @@ function ReviewManage() {
   // Approve a review
   const handleApprove = async (id) => {
     try {
-      await axios.patch(`https://g-bloombk.onrender.com/api/reviews/${id}/approve`);
+      await axios.patch(`${API_BASE}/api/reviews/${id}/approve`, {}, getAuthHeaders());
       fetchReviews();
     } catch (err) {
       console.log(err);
+      alert(err.response?.data?.message || "Failed to approve review.");
     }
   };
 
   // Delete a review
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://g-bloombk.onrender.com/api/reviews/${id}`);
+      await axios.delete(`${API_BASE}/api/reviews/${id}`, getAuthHeaders());
       fetchReviews();
     } catch (err) {
       console.log(err);
+      alert(err.response?.data?.message || "Failed to delete review.");
+    }
+  };
+
+  // Delete ALL reviews
+  const handleDeleteAll = async () => {
+    const confirmed = window.confirm(
+      "This will permanently delete ALL reviews. This cannot be undone. Continue?"
+    );
+    if (!confirmed) return;
+
+    const typed = window.prompt('Type "DELETE ALL" to confirm.');
+    if (typed !== "DELETE ALL") {
+      alert("Confirmation text did not match. Cancelled.");
+      return;
+    }
+
+    try {
+      const res = await axios.delete(`${API_BASE}/api/reviews/all`, getAuthHeaders());
+      alert(res.data.message);
+      fetchReviews();
+    } catch (err) {
+      console.log(err);
+      alert(err.response?.data?.message || "Failed to delete reviews.");
     }
   };
 
@@ -43,7 +79,15 @@ function ReviewManage() {
     <div className="p-6 bg-gray-100 min-h-screen text-gray-900">
       <h1 className="text-2xl font-bold mb-6 text-[#1a1a1a]">Review Management</h1>
       <div className="bg-[#1a1a1a] text-white shadow rounded-lg p-6">
-        <h2 className="text-lg font-semibold mb-4 text-yellow-400">All Reviews</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-yellow-400">All Reviews</h2>
+          <button
+            onClick={handleDeleteAll}
+            className="flex items-center gap-1 bg-red-700 hover:bg-red-800 text-white px-3 py-1 rounded text-sm font-semibold"
+          >
+            <FaTrash /> Delete All
+          </button>
+        </div>
         <div className="space-y-4">
           {reviews.map((review) => (
             <div key={review._id} className="border-b border-gray-700 pb-4 last:border-none">

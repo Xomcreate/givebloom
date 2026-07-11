@@ -55,7 +55,7 @@ function DonateA() {
         </div>
 
         {/* Dynamic Typography Element */}
-        <div className="h-16 sm:h-20 md:h-24 flex items-center justify-center overflow-hidden">
+        <div className="h-12 sm:h-16 md:h-20 flex items-center justify-center overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.h1
               key={currentIndex}
@@ -64,7 +64,7 @@ function DonateA() {
               animate="animate"
               exit="exit"
               transition={{ duration: 0.5, ease: [0.25, 1, 0.5, 1] }}
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight max-w-3xl"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black tracking-tight leading-tight max-w-3xl"
             >
               {texts[currentIndex]}
             </motion.h1>
@@ -72,7 +72,7 @@ function DonateA() {
         </div>
 
         {/* Subtext description */}
-        <p className="text-base sm:text-lg md:text-xl text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed">
+        <p className="text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed">
           Every contribution directly empowers essential localized operations—providing critical food packages, medical supplies, educational materials, and structural refuge to Venezuelan families in need.
         </p>
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { FaFacebookF, FaTwitter, FaInstagram, FaHandsHelping } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaHandsHelping } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 function Footer() {
@@ -114,35 +114,23 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Socials */}
+        {/* Contact */}
         <div>
-          <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
-          <div className="flex justify-center md:justify-start gap-4">
-            <a
-              href="https://facebook.com/yourpage" // ✅ replace with your page
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-            >
-              <FaFacebookF />
-            </a>
-            <a
-              href="https://twitter.com/yourpage" // ✅ replace with your profile
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-            >
-              <FaTwitter />
-            </a>
-            <a
-              href="https://instagram.com/yourpage" // ✅ replace with your profile
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-400 text-black hover:bg-yellow-500 transition"
-            >
-              <FaInstagram />
-            </a>
-          </div>
+          <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+          <ul className="space-y-3 text-gray-400 text-sm">
+            <li className="flex items-center justify-center md:justify-start gap-2">
+              <FaEnvelope className="text-yellow-400 flex-shrink-0" />
+              <span>givebloom15@gmail.com</span>
+            </li>
+            <li className="flex items-center justify-center md:justify-start gap-2">
+              <FaPhone className="text-yellow-400 flex-shrink-0" />
+              <span> +1 (248) 759-585836</span>
+            </li>
+            <li className="flex items-center justify-center md:justify-start gap-2">
+              <FaMapMarkerAlt className="text-yellow-400 flex-shrink-0" />
+              <span>Lagos, Nigeria</span>
+            </li>
+          </ul>
         </div>
       </div>
 

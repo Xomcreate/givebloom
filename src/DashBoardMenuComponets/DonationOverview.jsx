@@ -83,6 +83,26 @@ function DonationOverview() {
     }
   };
 
+  const handleDeleteAll = async () => {
+    if (
+      !window.confirm(
+        "This will permanently delete ALL donation records. This cannot be undone. Are you sure?"
+      )
+    )
+      return;
+
+    // Second confirmation since this is destructive and irreversible
+    if (!window.confirm("Really delete EVERYTHING? Type OK to confirm.")) return;
+
+    try {
+      await axios.delete(`${API_BASE}/donations/all`);
+      fetchDonations();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete all donations");
+    }
+  };
+
   const handleApprove = async id => {
     if (!window.confirm("Approve this donation?")) return;
     try {
@@ -148,50 +168,65 @@ function DonationOverview() {
 
       {/* Recent Donations Table */}
       <div className="bg-[#1a1a1a] text-white shadow rounded-lg p-6 mb-6">
-        <h2 className="text-lg font-semibold mb-4">Recent Donations</h2>
-        <div className="hidden md:block">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-gray-700 text-yellow-400">
-                <th className="py-2 px-2">Donor</th>
-                <th className="py-2 px-2">Cause</th>
-                <th className="py-2 px-2">Amount</th>
-                <th className="py-2 px-2">Method</th>
-                <th className="py-2 px-2">Date</th>
-                <th className="py-2 px-2">Status</th>
-                <th className="py-2 px-2">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {donations.map((d, idx) => (
-                <tr key={idx} className="border-b border-gray-700">
-                  <td className="py-2 px-2">{d.donor}</td>
-                  <td className="py-2 px-2">{d.cause}</td>
-                  <td className="py-2 px-2 text-yellow-400 font-semibold">{d.amountText}</td>
-                  <td className="py-2 px-2">{d.method}</td>
-                  <td className="py-2 px-2">{d.date}</td>
-                  <td className={`py-2 px-2 ${d.color}`}>{d.status}</td>
-                  <td className="py-2 px-2 space-x-2">
-                    {d.status === "Pending" && (
-                      <button
-                        className="bg-green-600 text-white px-2 py-1 rounded"
-                        onClick={() => handleApprove(d._id)}
-                      >
-                        Approve
-                      </button>
-                    )}
-                    <button
-                      className="bg-red-600 text-white px-2 py-1 rounded"
-                      onClick={() => handleDelete(d._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+          <h2 className="text-lg font-semibold">Recent Donations</h2>
+          {donations.length > 0 && (
+            <button
+              className="bg-red-700 hover:bg-red-800 text-white px-3 py-1.5 rounded text-sm font-medium transition"
+              onClick={handleDeleteAll}
+            >
+              Delete All
+            </button>
+          )}
         </div>
+
+        {donations.length === 0 ? (
+          <p className="text-gray-400 text-sm">No donations yet.</p>
+        ) : (
+          <div className="hidden md:block">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-gray-700 text-yellow-400">
+                  <th className="py-2 px-2">Donor</th>
+                  <th className="py-2 px-2">Cause</th>
+                  <th className="py-2 px-2">Amount</th>
+                  <th className="py-2 px-2">Method</th>
+                  <th className="py-2 px-2">Date</th>
+                  <th className="py-2 px-2">Status</th>
+                  <th className="py-2 px-2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {donations.map((d, idx) => (
+                  <tr key={idx} className="border-b border-gray-700">
+                    <td className="py-2 px-2">{d.donor}</td>
+                    <td className="py-2 px-2">{d.cause}</td>
+                    <td className="py-2 px-2 text-yellow-400 font-semibold">{d.amountText}</td>
+                    <td className="py-2 px-2">{d.method}</td>
+                    <td className="py-2 px-2">{d.date}</td>
+                    <td className={`py-2 px-2 ${d.color}`}>{d.status}</td>
+                    <td className="py-2 px-2 space-x-2">
+                      {d.status === "Pending" && (
+                        <button
+                          className="bg-green-600 text-white px-2 py-1 rounded"
+                          onClick={() => handleApprove(d._id)}
+                        >
+                          Approve
+                        </button>
+                      )}
+                      <button
+                        className="bg-red-600 text-white px-2 py-1 rounded"
+                        onClick={() => handleDelete(d._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {/* Donation Pie Chart */}

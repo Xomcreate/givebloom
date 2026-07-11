@@ -19,7 +19,7 @@ function User() {
     { name: "My Donations", icon: <FaHandsHelping />, key: "mydonations" },
     // { name: "Volunteering", icon: <FaHandsHelping />, key: "volunteering" },
     // { name: "Achievement", icon: <FaHandsHelping />, key: "achievement" },
-    { name: "Referral", icon: <FaHandsHelping />, key: "ref" },
+    // { name: "Referral", icon: <FaHandsHelping />, key: "ref" },
   ];
 
   return (
