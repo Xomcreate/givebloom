@@ -128,7 +128,7 @@ function Footer() {
             </li>
             <li className="flex items-center justify-center md:justify-start gap-2">
               <FaMapMarkerAlt className="text-yellow-400 flex-shrink-0" />
-              <span>Lagos, Nigeria</span>
+              <span>Michigan, United States</span>
             </li>
           </ul>
         </div>

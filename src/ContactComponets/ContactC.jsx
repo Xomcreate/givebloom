@@ -9,7 +9,7 @@ function ContactC() {
       title: "Call Us Today",
       subtitle: "Direct Support",
       details: [
-        "+234 907 608 4515",
+        "+1 (248) 759-5836",
         "Reach out directly for partnership queries, immediate assistance, or direct contact with our coordinators."
       ],
       accentColor: "group-hover:bg-yellow-400",

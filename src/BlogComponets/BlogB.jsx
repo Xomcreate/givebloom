@@ -4,6 +4,12 @@ import { motion } from "framer-motion";
 
 const API_BASE = "https://g-bloombk-production.up.railway.app"; // Backend URL
 
+// Inserts Cloudinary transformation params for a sharp, right-sized, auto-format image
+const optimizeCloudinaryUrl = (url, width = 800) => {
+  if (!url || !url.includes("/upload/")) return url;
+  return url.replace("/upload/", `/upload/q_auto:best,f_auto,w_${width}/`);
+};
+
 function BlogB() {
   const [blogs, setBlogs] = useState([]);
 
@@ -61,7 +67,7 @@ function BlogB() {
             >
               {blog.imageUrl && (
                 <img
-                  src={blog.imageUrl}
+                  src={optimizeCloudinaryUrl(blog.imageUrl, 600)}
                   alt={blog.title}
                   loading="lazy"
                   className="w-full h-52 object-cover"
