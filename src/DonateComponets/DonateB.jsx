@@ -5,14 +5,17 @@ const API_BASE = "https://g-bloombk-production.up.railway.app/api/donations";
 
 // Fill these in with your real details
 const BANK_DETAILS = {
-  bankName: "GTBank",
-  accountName: "Bloom Foundation",
-  accountNumber: "0123456789",
+  bankName: "Lead",
+  accountName: "Destiny Daniel Dibie / GiveBloom Ltd",
+  accountNumber: "212462102098",
+  wireRoutingNumber: "101019644",
+  achRoutingNumber: "101019644",
 };
 
 const CRYPTO_WALLETS = [
-  { coin: "USDT (TRC20)", address: "TXXXXXXXXXXXXXXXXXXXXXXXXXXXX" },
-  { coin: "BTC", address: "bc1qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
+  { coin: "USDT/TRX (TRC20)", address: "TQMd62NvqYdaMM9zqENRKYHp57AoSdXNWa" },
+  { coin: "BTC", address: "bc1qfe324z0cg9mr7y03k7spx0qfcfdsghuskd9sck" },
+  { coin: "BNB", address: "0xF47De8B072e5ED777b10DD5df1b7996597f975b9" },
 ];
 
 function DonateB() {
@@ -194,6 +197,8 @@ function DonateB() {
             <p>Bank: {BANK_DETAILS.bankName}</p>
             <p>Account Name: {BANK_DETAILS.accountName}</p>
             <p>Account Number: {BANK_DETAILS.accountNumber}</p>
+            <p>Wire Routing Number: {BANK_DETAILS.wireRoutingNumber}</p>
+            <p>ACH Routing Number: {BANK_DETAILS.achRoutingNumber}</p>
             <p className="text-xs text-gray-500 mt-2">
               After transferring, upload your receipt/screenshot below.
             </p>
@@ -207,6 +212,8 @@ function DonateB() {
             <p>Bank: {BANK_DETAILS.bankName}</p>
             <p>Account Name: {BANK_DETAILS.accountName}</p>
             <p>Account Number: {BANK_DETAILS.accountNumber}</p>
+            <p>Wire Routing Number: {BANK_DETAILS.wireRoutingNumber}</p>
+            <p>ACH Routing Number: {BANK_DETAILS.achRoutingNumber}</p>
             <p className="text-xs text-gray-500 mt-2">
               Use your card via your bank's app or USSD to send to this account, then upload proof below.
             </p>

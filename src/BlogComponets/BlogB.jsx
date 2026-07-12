@@ -29,16 +29,16 @@ function BlogB() {
   const containerVariants = {
     hidden: {},
     visible: {
-      transition: { staggerChildren: 0.12 },
+      transition: { staggerChildren: 0.04 },
     },
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
+      transition: { duration: 0.2, ease: "easeOut" },
     },
   };
 

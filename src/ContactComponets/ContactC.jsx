@@ -19,7 +19,7 @@ function ContactC() {
       title: "Email Channels",
       subtitle: "Drop a Line",
       details: [
-        "givebloom15@gmail.com",
+        "givebloom001@gmail.com",
         "Send us your proposals, program ideas, or donation confirmations. We review our inbox daily."
       ],
       accentColor: "group-hover:bg-blue-600",

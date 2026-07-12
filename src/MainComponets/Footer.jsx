@@ -120,7 +120,7 @@ function Footer() {
           <ul className="space-y-3 text-gray-400 text-sm">
             <li className="flex items-center justify-center md:justify-start gap-2">
               <FaEnvelope className="text-yellow-400 flex-shrink-0" />
-              <span>givebloom15@gmail.com</span>
+              <span>givebloom001@gmail.com</span>
             </li>
             <li className="flex items-center justify-center md:justify-start gap-2">
               <FaPhone className="text-yellow-400 flex-shrink-0" />

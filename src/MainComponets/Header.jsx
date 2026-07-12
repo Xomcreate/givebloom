@@ -40,7 +40,7 @@ function Header() {
         <div className="flex flex-col sm:flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-1 md:gap-6">
           <span className="flex items-center gap-1 justify-center md:justify-start">
             <FaEnvelope className="text-yellow-400" />
-            givebloom15@gmail.com
+            givebloom001@gmail.com
           </span>
           <span className="flex items-center gap-1 justify-center md:justify-start">
             <FaPhone className="text-yellow-400" />
