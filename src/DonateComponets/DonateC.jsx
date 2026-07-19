@@ -5,19 +5,19 @@ function DonateC() {
   const plans = [
     {
       title: "Immediate Relief",
-      price: "$25 / month",
+      price: "$50 / month",
       description:
         "Provides monthly emergency food parcels, clean drinking water, and hygiene kits to displaced families.",
     },
     {
       title: "Medical & Rescue Support",
-      price: "$75 / quarter",
+      price: "$100/ quarter",
       description:
         "Funds mobile medical clinics, trauma supplies, and search-and-rescue teams working in affected zones.",
     },
     {
       title: "Rebuild & Recover",
-      price: "$300 / year",
+      price: "$200 or 500/ year",
       description:
         "Sustains long-term recovery by financing structural damage assessments and rebuilding collapsed community infrastructure.",
     },
